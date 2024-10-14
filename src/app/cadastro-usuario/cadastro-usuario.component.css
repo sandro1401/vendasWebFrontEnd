@@ -1,0 +1,104 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+        .container {
+            display: flex;
+            width: 900px;
+            height: auto; /* Ajusta a altura automaticamente */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .welcome {
+            background-color: #53c2b8;
+            width: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .welcome h1 {
+            margin-bottom: 20px;
+        }
+        .welcome p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .welcome button {
+            padding: 10px 20px;
+            background-color: white;
+            color: #53c2b8;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 25px;
+        }
+        .form-container {
+            background-color: white;
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #53c2b8;
+        }
+        .form-horizontal {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 45%;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+        .form-group input[type="button"] {
+            background-color: #53c2b8;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+        }
+        .location-header {
+            width: 100%;
+            color: #53c2b8;
+            text-align: center;
+            margin-bottom: 0px; /* Ajuste a distância abaixo da seção */
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .form-group.location-field {
+            margin-top: 0; /* Remove o espaço extra acima dos campos de localização */
+        }
+  
