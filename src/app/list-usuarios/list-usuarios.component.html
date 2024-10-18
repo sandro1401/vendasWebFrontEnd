@@ -1,0 +1,47 @@
+<div class="container">
+    <h3>Lista de Usuarios</h3>
+
+    <div class="mb-3">
+        <label for="nome" class="form-label">Pesquisa:</label>
+        <input [(ngModel)]="nomePesquisado" class="form-control"
+            id="nome" placeholder="nome do usuario ...">
+    </div>
+
+    <h4 *ngIf="(listaUsuarios | filtroPesquisa:nomePesquisado).length == 0">
+        Não há Usuários cadastrados!
+    </h4>
+    <table class="table table-striped" *ngIf="(listaUsuarios| filtroPesquisa:nomePesquisado).length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>EMAIL</th>
+                <th>SENHA</th>
+                <th>ENDEREÇO</th>
+                <th>DATA DE NASCIMENTO</th>
+                <th>SEXO</th>
+                <th>TELEFONE</th>
+                <th>TIPO</th>
+                <th>AÇÃO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let usuario of listaUsuarios | filtroPesquisa:nomePesquisado">
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.nome}}</td>
+                <td>{{usuario.cpf }}</td>
+                <td>{{usuario.email }}</td>
+                <td>{{usuario.senha}}</td>
+                <td>{{usuario.endereco }}</td>
+                <td>{{usuario.dt_nascimento| date:'dd/MM/yyyy' }}</td>
+                <td>{{usuario.sexo }}</td>
+                <td>{{usuario.telefone }}</td>
+                <td>{{usuario.tipo }}</td>
+
+                <td><a class='btn btn-primary' routerLink="/edit/{{usuario.id}}">Editar</a></td>
+                <td><a class='btn btn-primary' routerLink="/Lista" (click)="deletar(usuario.id)" >Deletar</a></td>
+            </tr>    
+        </tbody>
+    </table>
+</div>

@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
+import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
+import { FiltroPesquisaPipe } from './filtro-pesquisa.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    ListUsuariosComponent,
+    FiltroPesquisaPipe
   ],
   imports: [
     BrowserModule,
