@@ -1,0 +1,44 @@
+<div class="container">
+    <h3>Formulário cadastro de Produtos</h3>
+    <div class="mb-3">
+        <label for="nome" class="form-label">NOME:</label>
+        <input [(ngModel)]="produto.nome" class="form-control"
+            id="nome" placeholder="nome do produto ...">
+    </div>
+    <div class="mb-3">
+        <label for="descricao" class="form-label">DESCRIÇÃO:</label>
+        <input [(ngModel)]="produto.descricao" class="form-control"
+            id="descricao" placeholder="descrição/marca  ...">
+    </div>
+    <div class="mb-3">
+        <label for="preco" class="form-label">PRECO:</label>
+        <input type="number" [(ngModel)]="produto.preco" class="form-control"
+            id="preco" placeholder="preço ...">
+    </div>
+  
+    <div class="mb-3">
+        <label for="IdCategroria" class="form-label">CATEGORIA:</label>
+        <input  [(ngModel)]="produto.categoriaId" class="form-control"
+            id="IdCategroria" placeholder="categoria ...">
+    </div>
+    <div class="mb-3">
+        <label for="IdUsuario" class="form-label">USUARIO:</label>
+        <input  [(ngModel)]="produto.usuarioId" class="form-control"
+            id="IdCategroria" placeholder="Usuario ...">
+    </div>
+    <div class="mb-3">
+        <label for="imagem" class="form-label">IMAGEM:</label>
+        <input  [(ngModel)]="produto.imagem_url" class="form-control"
+            id="imagem" placeholder="imagem ...">
+    </div>
+    <button class="btn btn-primary me-3" (click)="salvar()" >
+        {{botaoAcao}}
+    </button>
+    <button class="btn btn-primary" (click)="voltar()">
+        VOLTAR
+    </button>
+
+
+    {{produto | json}}
+    
+</div>

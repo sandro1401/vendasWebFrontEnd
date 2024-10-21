@@ -1,0 +1,16 @@
+
+<div class="container">
+    <!--<img src="/imagem.png" alt="produto" class="card-img-top" />-->
+        <section class="products">
+            <div class="product-card">
+                <div class="card">
+                    <img class="card-img-top"> {{produto.imagem_url}}
+                </div>
+                <h2 class="card-title">{{produto.nome}}</h2 >
+                <div class="price">R$ {{produto.preco}}</div>
+                <p class="card-text"> {{produto.descricao}}</p>
+                <button (click)="comprar()">Comprar</button>
+            </div>
+        </section>
+</div>
+

@@ -9,13 +9,20 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
 import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
 import { FiltroPesquisaPipe } from './filtro-pesquisa.pipe';
 
+import { ListCardProdutosComponent } from './list-card-produtos/list-card-produtos.component';
+import { CadastroProdutosComponent } from './cadastro-produtos/cadastro-produtos.component';
+import { CardProdutosComponent } from './card-produtos/card-produtos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CadastroUsuarioComponent,
     ListUsuariosComponent,
-    FiltroPesquisaPipe
+    FiltroPesquisaPipe,
+    ListCardProdutosComponent,
+    CadastroProdutosComponent,
+    CardProdutosComponent
   ],
   imports: [
     BrowserModule,
