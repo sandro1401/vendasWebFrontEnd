@@ -9,7 +9,7 @@
                 <h2 class="card-title">{{produto.nome}}</h2 >
                 <div class="price">R$ {{produto.preco}}</div>
                 <p class="card-text"> {{produto.descricao}}</p>
-                <button (click)="comprar()">Comprar</button>
+                <button (click)="adicionarProdutoAoPedido(produto)">Comprar</button>
             </div>
         </section>
 </div>

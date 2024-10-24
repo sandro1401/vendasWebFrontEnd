@@ -1,5 +1,8 @@
 
+
 <body>
+  
+    
     <div class="container">
         <div class="welcome">
             <h1>Vendas Web</h1>
@@ -29,12 +32,40 @@
             <input [(ngModel)]="usuario.senha" class="form-control"
                 id="senha" type="password" placeholder="senha ...">
         </div>
-        <div class="form-group">
-            <label for="endereco" class="form-label">ENDEREÇO:</label>
-            <input [(ngModel)]="usuario.endereco" class="form-control"
-                id="endereco"  placeholder="endereço ...">
-        </div>
-    
+        <form [formGroup]="form">
+            <div class="row p-0">
+                <div class="form-group">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input [(ngModel)]="usuario.cep" formControlName="cep" type="text"  class="form-control"
+                        id="cep"  placeholder="Digite o Cep sem espaços...">
+                </div>
+                <div class="form-group">
+                    <label  for="logradouro" class="form-label">LOGRADOURO:</label>
+                    <input [(ngModel)]="usuario.logradouro" formControlName="logradouro" class="form-control"
+                        id="logradouro"  placeholder="logradouro ...">
+                </div>
+                <div class="form-group">
+                    <label for="unidade" class="form-label">NÚMERO:</label>
+                    <input [(ngModel)]="usuario.unidade"  formControlName="unidade" class="form-control"
+                        id="unidade"  placeholder="numero ...">
+                </div>
+                <div class="form-group">
+                    <label for="bairro" class="form-label">BAIRRO:</label>
+                    <input  [(ngModel)]="usuario.bairro"  formControlName="bairro" class="form-control"
+                        id="bairro"  placeholder="bairro...">
+                </div>
+                <div class="form-group">
+                    <label for="cidade" class="form-label">CIDADE:</label>
+                    <input  [(ngModel)]="usuario.cidade"  formControlName="cidade" class="form-control"
+                        id="cidade"  placeholder="cidade ...">
+                </div>
+                <div class="form-group">
+                    <label for="estado" class="form-label">ESTADO:</label>
+                    <input  [(ngModel)]="usuario.estado"  formControlName="estado" class="form-control"
+                        id="estado"  placeholder="estado ...">
+                </div>
+            </div>
+        </form>
         <div class="form-group">
             <label for="dt_nascimento" class="form-label">DATA DE NASCIMENTO:</label>
             <input type="date" [(ngModel)]="usuario.dt_nascimento" class="form-control"
@@ -71,7 +102,9 @@
         
         
     
-        <!-- {{usuario | json}} -->
+        {{usuario | json}}
         
     </div>
+
+    
 </body>

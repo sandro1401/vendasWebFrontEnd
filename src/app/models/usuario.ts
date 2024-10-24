@@ -4,7 +4,12 @@ export class Usuario {
     cpf?: string;
     email?: string;
     senha?: string;
-    endereco?: string;
+    cep?: string;
+    logradouro?: string;
+    unidade?: string;
+    bairro?: string;
+    cidade?: string;
+    estado?: string;
     dt_nascimento?: Date;
     sexo?: string;
     telefone?: string;

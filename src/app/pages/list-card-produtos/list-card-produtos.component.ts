@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Produto } from '../produto';
-import { ProdutoApiService } from '../produto-api.service';
+import { Produto } from '../../models/produto';
+import { ProdutoApiService } from '../../service/produto-api.service';
 @Component({
   selector: 'app-list-card-produtos',
   templateUrl: './list-card-produtos.component.html',

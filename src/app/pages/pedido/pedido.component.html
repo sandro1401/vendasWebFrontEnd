@@ -1,0 +1,39 @@
+<div class="pedido">
+    <h2>Resumo do Pedido</h2>
+  
+    <!-- Lista de itens do pedido -->
+    <ul *ngIf="itensPedido.length > 0; else semItens">
+      <li *ngFor="let item of itensPedido">
+        <div class="produto">
+          <span class="nome-produto">{{ item.nome }}</span>
+          <span *ngIf="item.preco" class="preco-produto">R$ {{ item.preco.toFixed(2) }}</span>
+          <button *ngIf="item.id" (click)="removerProduto(item.id)">Remover</button>
+        </div>
+      </li>
+    </ul>
+    <div>
+      <h1>Pedido</h1>
+       <!-- Botão para ir para a tela de Item Pedido -->
+    <div class="acoes-pedido">
+      <a routerLink="/item-pedido" class="btn-adicionar">Adicionar Produtos</a>
+    </div>
+      <ul>
+        <li *ngFor="let item of itensSelecionados">
+          {{ item.quantidade }} x {{ item.produtoId }} (R$ {{ item.valorTotal }})
+        </li>
+      </ul>
+      <button (click)="criarPedido()">Criar Pedido</button>
+    </div>
+    <!-- Mensagem quando não há itens -->
+    <ng-template #semItens>
+      <p>O pedido está vazio.</p>
+    </ng-template>
+  
+   
+  
+    <!-- Total do pedido -->
+    <div class="total-pedido" *ngIf="itensPedido.length > 0">
+      <strong>Total: R$ {{ totalPedido.toFixed(2) }}</strong>
+    </div>
+  </div>
+  

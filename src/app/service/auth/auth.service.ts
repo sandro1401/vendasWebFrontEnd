@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Usuario } from '../usuario';
+import { Usuario } from '../../models/usuario'; 
 import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
@@ -11,6 +11,7 @@ const httpOptions = {
     "Content-Type": "application/json"
   })
 }
+const TOKEN_KEY = 'token';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,21 @@ export class AuthService {
       catchError(error => of(false))      
     );    
   }
+  // obterUsuarioLogado(): Observable<Usuario> {
+  //   const token = localStorage.getItem(TOKEN_KEY);
+  //   if (!token) {
+  //     throw new Error('Token de autenticação não encontrado');
+  //   }
+
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`
+  //   });
+
+  //   return this.http.get<Usuario>(`${BASE_API}`, { headers }).pipe(
+  //     tap((usuario: Usuario) => {
+  //       // Você pode armazenar o usuário logado em uma variável aqui, se necessário
+  //       return usuario;
+  //     })
+  //   );
+  // }
 }

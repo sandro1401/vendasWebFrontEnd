@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Produto } from '../produto';
-import { ProdutoApiService } from '../produto-api.service';
+import { Produto } from '../../models/produto';
+import { ProdutoApiService } from '../../service/produto-api.service';
 
 @Component({
   selector: 'app-cadastro-produtos',

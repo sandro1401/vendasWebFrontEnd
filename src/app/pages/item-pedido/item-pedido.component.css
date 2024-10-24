@@ -1,0 +1,52 @@
+/* item-pedido.component.css */
+
+.container-item-pedido {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.produto-disponivel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.produto-disponivel:last-child {
+  border-bottom: none;
+}
+
+.nome-produto {
+  font-weight: bold;
+}
+
+.preco-produto {
+  font-size: 18px;
+  color: #666;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.itens-selecionados {
+  margin-top: 40px;
+}
+
+.itens-adicionados {
+  margin-top: 40px;
+}

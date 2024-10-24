@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
-import { ListUsuariosComponent } from './list-usuarios/list-usuarios.component';
-import { ListCardProdutosComponent } from './list-card-produtos/list-card-produtos.component';
-import { CardProdutosComponent } from './card-produtos/card-produtos.component';
-import { CadastroProdutosComponent } from './cadastro-produtos/cadastro-produtos.component';
+import { LoginComponent } from './pages/login/login.component';
+import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
+import { ListUsuariosComponent } from './pages/list-usuarios/list-usuarios.component';
+import { ListCardProdutosComponent } from './pages/list-card-produtos/list-card-produtos.component';
+import { CardProdutosComponent } from './pages/card-produtos/card-produtos.component';
+import { CadastroProdutosComponent } from './pages/cadastro-produtos/cadastro-produtos.component';
+import { PedidoComponent } from './pages/pedido/pedido.component';
+import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
+
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'novo', component: CadastroUsuarioComponent},
@@ -14,7 +17,11 @@ const routes: Routes = [
   {path: 'listaProdutos', component: ListCardProdutosComponent},
   {path: 'CardProdutos', component: CardProdutosComponent},
   {path: 'cadastroProdutos', component: CadastroProdutosComponent},
-  { path: '', redirectTo:'/login', pathMatch: 'full' },
+  {path: 'pedidos', component: PedidoComponent},
+  { path: 'item-pedido', component: ItemPedidoComponent },
+
+ { path: '', redirectTo: '/listaProdutos', pathMatch: 'full' }, 
+  // { path: '', redirectTo:'/login', pathMatch: 'full' },
 
 ];
 
