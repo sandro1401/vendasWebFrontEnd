@@ -1,12 +1,12 @@
 <header>
-    <nav>
-     
-      <div *ngIf="nomeUsuario">
-        <span>Olá, {{ nomeUsuario }}, {{idUsuario}}</span>
-
+    <nav  class="navbar bg-body-tertiary">
+      <div class="container-fluid" *ngIf="nomeUsuario">
+        <span class="navbar-brand mb-2 h1">Bem Vindo, {{ nomeUsuario }}</span>
+      </div>
+      <div  class="container-fluid">
         <!-- Adicione um link para logout se necessário -->
-        <button mat-menu-item>
-          <span (click)="logout()">Logout</span>
+        <button class="btn btn-outline-success" type="submit">
+          <span  (click)="logout()">Sair</span>
         </button>
       </div>
     </nav>

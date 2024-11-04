@@ -11,14 +11,14 @@ import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
 import { AuthGuard } from './service/auth/auth.guard';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'novo', component: CadastroUsuarioComponent},
-  {path: 'lista', component: ListUsuariosComponent},
+  {path: 'novoUsuario', component: CadastroUsuarioComponent},
+  {path: 'lista', component: ListUsuariosComponent, canActivate: [AuthGuard]},
   {path: 'edit/:id', component: CadastroUsuarioComponent, canActivate: [AuthGuard]},
   {path: 'listaProdutos', component: ListCardProdutosComponent},
   {path: 'CardProdutos', component: CardProdutosComponent},
   {path: 'cadastroProdutos', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
-  {path: 'pedidos', component: PedidoComponent},
-  { path: 'item-pedido', component: ItemPedidoComponent },
+  {path: 'pedidos', component: PedidoComponent, canActivate: [AuthGuard]},
+  { path: 'item-pedido', component: ItemPedidoComponent, canActivate: [AuthGuard] },
 
  { path: '', redirectTo: '/listaProdutos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },

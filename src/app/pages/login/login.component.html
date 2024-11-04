@@ -10,19 +10,17 @@
                 <div class="login-box">
                     <h3>Login</h3>
                     <form>
-                       
-                        <div class="form-group">
+                        <div class="mb-3" class="form-group">
                             <label for="email">E-mail:</label>
                             <input id="email" type="text" [(ngModel)]="email" name="email" type="text" 
                             class="form-control textfield" placeholder="Digite seu Email" value="" />
                         </div>
-                       
-                        <div class="form-group">
+                        <div class="mb-3" class="form-group">
                             <label for="senha">Senha:</label>
                             <input  id="senha" matInput [type]="hidePassword ? 'password' : 'text'"
                             [(ngModel)]="senha" name="senha" type="password" class="form-control textfield" placeholder="Digite sua senha" value="" />
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3" class="form-group">
                             <button (click)="login(email, senha)" class="btnSubmit">Login</button>
                         </div>
                         <p *ngIf="erro" class="text-danger">Usuário ou Senha Inválidos</p>

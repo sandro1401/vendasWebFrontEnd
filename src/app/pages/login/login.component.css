@@ -16,8 +16,8 @@
 
         .container {
             display: flex;
-            width: 1000px;
-            height: 500px;
+            width: 60%;
+            height: 50%;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
@@ -27,21 +27,24 @@
             padding: 5%;
         }
         .login-container{
-            margin-top: 1%;
+           display: flex;
             margin-bottom: 5%;
             width: 70%;
-            padding: 5%;
-          
+            padding: 5px;
+            height: 100%;
+            border-radius: 15px;
+            
         }
 
         .left {
-            width: 40%;
+            width: 50%;
             background-color: #53c2b8; /* Cor de fundo */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             padding: 10px;
+            border-radius: 15px;
         }
 
         .content {
@@ -55,7 +58,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-          
+            height: 100%;
+           
         }
 
         .login-box {
@@ -67,7 +71,9 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
+            width: 100%;
+            height: auto;
         }
 
         .login-box h2 {
@@ -79,6 +85,8 @@
         form {
             display: flex;
             flex-direction: column;
+            width: 100%;
+            height: 100%;
         }
 
         label {
