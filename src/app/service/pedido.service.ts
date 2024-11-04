@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, map, catchError } from 'rxjs';
 import { Produto } from '../models/produto';
 import { throwError } from 'rxjs';
+import { ItemPedido } from '../models/item-pedido';
 
 const BASE_API = 'http://localhost:3000/api/pedido';
 
@@ -34,22 +35,32 @@ export class PedidoService {
     return this.http.post(BASE_API, {});
   }
   
-  adicionarProduto(produto: Produto): Observable<Produto> {
-    // Primeiro, envia a requisição para o backend para adicionar o produto
-    return this.http.post<Produto>(`${BASE_API}`, { produto }, httpOptions).pipe(
-      tap((produtoAdicionado: Produto) => {
-        // Após sucesso, atualiza a lista local de itens do pedido
-        const itensAtuais = this.itensPedido.getValue();
-        itensAtuais.push(produtoAdicionado);
-        this.itensPedido.next(itensAtuais);
+  adicionarProduto(produto: Produto, quantidade: number, pedidoId: number, concluido: boolean = false): Observable<ItemPedido> {
+    const body: ItemPedido = {
+      produtoId: produto.id,
+      quantidade,
+      pedidoId,
+      concluido,
+      // Valor total pode ser calculado aqui ou no servidor, dependendo da sua implementação
+      // valorTotal: produto.preco * quantidade, // Descomente se deseja calcular aqui
+    };
+  
+    return this.http.post(`${BASE_API}`, body, httpOptions).pipe(
+      tap((response: ItemPedido) => {
+        console.log('Item de pedido criado com sucesso:', response);
+        return response; // Retorne o item de pedido completo
       }),
       catchError((error) => {
-        // Tratamento de erro, caso a requisição falhe
-        console.error('Erro ao adicionar produto:', error);
+        console.error('Erro ao adicionar produto ao pedido:', error);
         return throwError(() => error);
       })
     );
   }
+   
+    ;
+  
+
+		
 
   /**
    * Remove um produto do pedido localmente e envia a requisição para o backend.
@@ -105,5 +116,9 @@ export class PedidoService {
 
   adicionarItemPedido(itemPedido: any) {
     return this.http.post(`${BASE_API}`, itemPedido);
+  }
+
+  getPedidoById(id: number): Observable<any>{
+    return this.http.get(`${BASE_API}/${id}`,)
   }
 }

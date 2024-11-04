@@ -3,6 +3,7 @@ import { Produto } from '../../models/produto';
 import { ProdutoApiService } from '../../service/produto-api.service';
 import { PedidoService } from '../../service/pedido.service';
 import { Router } from '@angular/router';
+import { ItemPedido } from '../../models/item-pedido';
 
 @Component({
   selector: 'app-item-pedido',
@@ -13,6 +14,8 @@ export class ItemPedidoComponent implements OnInit {
   produtosDisponiveis: Produto[] = [];
   produtoSelecionado!: Produto;
   quantidade: number = 1;
+  concluido: boolean = false;
+ 
   @Input() pedidoId: number = 1;
   itensSelecionados: any[] = [];
   constructor(private produtoService: ProdutoApiService, private pedidoService: PedidoService,private router: Router) { }
@@ -37,23 +40,39 @@ export class ItemPedidoComponent implements OnInit {
         valorTotal,
         pedidoId: this.pedidoId,
         produtoId: this.produtoSelecionado.id,
+        concluido: this.concluido
       };
       console.log(itemPedido)
 
       this.itensSelecionados.push(itemPedido);
     // Redirecionar para o template de pedido
     this.router.navigate(['/pedidos'], { state: { itensSelecionados: this.itensSelecionados } });
-      //this.pedidoService.adicionarItemPedido(itemPedido).subscribe(() => {
-       // console.log('Item adicionado ao pedido com sucesso!');
-      //});
+   
     }}
+
+  // adicionarProdutoAoPedido() {
+  //   if (this.produtoSelecionado && this.pedidoId) {
+  //     this.pedidoService.adicionarProduto(
+  //       this.produtoSelecionado,
+  //       this.quantidade,
+  //       this.pedidoId,
+  //       this.concluido
+  //     ).subscribe((itemPedidoCriado: ItemPedido) => {
+  //       console.log('Item de pedido criado:', itemPedidoCriado);
+  //       // Redirecionar para o template de pedido
+  //       this.router.navigate(['/pedidos'], { state: { novoItemId: itemPedidoCriado.id } });
+  //     },
+  //     (error) => {
+  //       console.error('Erro ao adicionar produto ao pedido:', error);
+  //       // Tratar erro, por exemplo, exibindo uma mensagem para o usuário
+  //     });
+  //   }}
 
   removerProduto(produtoId: number) {
     this.pedidoService.removerProduto(produtoId).subscribe(() => {
       // Atualiza a lista de itens do pedido após remover
       this.pedidoService.obterItensPedido().subscribe(itens => {
-        // this.itensPedido = itens; // Se você quiser manter a lista local atualizada
-        // this.calcularTotal(); // Se você quiser manter o total local atualizado
+       
       });
     });
   }

@@ -15,7 +15,11 @@ import { CadastroProdutosComponent } from './pages/cadastro-produtos/cadastro-pr
 import { CardProdutosComponent } from './pages/card-produtos/card-produtos.component';
 import { PedidoComponent } from './pages/pedido/pedido.component';
 import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
-
+import { HeaderComponent } from './header/header.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,14 +32,20 @@ import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
     CardProdutosComponent,
     PedidoComponent,
     ItemPedidoComponent,
+    HeaderComponent,
+   
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTooltip,
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

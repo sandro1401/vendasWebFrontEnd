@@ -6,6 +6,7 @@ import { tap, catchError } from 'rxjs/operators';
 
 
 const BASE_API = "http://localhost:3000/api/login";
+const BASE_API_usuario = "http://localhost:3000/api/usuario";
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"
@@ -19,10 +20,13 @@ const TOKEN_KEY = 'token';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+  
   login(usuario: Usuario): Observable<boolean> {
     return this.http.post<any>(BASE_API, usuario, httpOptions).pipe(
       tap((resp: any) => {
+      
         if(resp && resp?.token){
+          
           sessionStorage.setItem("token", resp.token);
           return true;
         }
@@ -33,21 +37,33 @@ export class AuthService {
       catchError(error => of(false))      
     );    
   }
-  // obterUsuarioLogado(): Observable<Usuario> {
-  //   const token = localStorage.getItem(TOKEN_KEY);
-  //   if (!token) {
-  //     throw new Error('Token de autenticação não encontrado');
-  //   }
 
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Bearer ${token}`
-  //   });
+  estaLogado(): boolean {
+    const token = sessionStorage.getItem("token");
+    return token != null;
+  }
 
-  //   return this.http.get<Usuario>(`${BASE_API}`, { headers }).pipe(
-  //     tap((usuario: Usuario) => {
-  //       // Você pode armazenar o usuário logado em uma variável aqui, se necessário
-  //       return usuario;
-  //     })
-  //   );
-  // }
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+ 
+       
+  obterUsuarioLogado(): Observable<Usuario> {
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    if (!token) {
+      throw new Error('Token de autenticação não encontrado');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<Usuario>(`${BASE_API}`, { headers }).pipe(
+      tap((usuario: Usuario) => {
+        // Você pode armazenar o usuário logado em uma variável aqui, se necessário
+        return usuario;
+      })
+    );
+  }
 }

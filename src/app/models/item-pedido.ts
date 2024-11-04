@@ -4,4 +4,6 @@ export class ItemPedido {
     preco_unitario?: number;  
     pedidoId?: number;
     produtoId?: number;
+    concluido?: boolean;
+
 }

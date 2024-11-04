@@ -27,6 +27,13 @@
     <p>Quantidade:
       <input type="number" [(ngModel)]="quantidade" min="1">
     </p>
+    <p>Concluir Pedido:
+      <select [(ngModel)]="concluido">
+        <option [value]="true">Sim</option>
+        <option [value]="false">Não</option>
+      </select>
+    </p>
+      
     <div class="total-pedido">
       <strong>Valor Total: R$ {{ calcularValorTotal() | number: '1.2-2' }}</strong>
     </div>

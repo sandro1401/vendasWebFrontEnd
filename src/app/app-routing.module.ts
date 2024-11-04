@@ -8,15 +8,15 @@ import { CardProdutosComponent } from './pages/card-produtos/card-produtos.compo
 import { CadastroProdutosComponent } from './pages/cadastro-produtos/cadastro-produtos.component';
 import { PedidoComponent } from './pages/pedido/pedido.component';
 import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
-
+import { AuthGuard } from './service/auth/auth.guard';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'novo', component: CadastroUsuarioComponent},
   {path: 'lista', component: ListUsuariosComponent},
-  {path: 'edit/:id', component: CadastroUsuarioComponent},
+  {path: 'edit/:id', component: CadastroUsuarioComponent, canActivate: [AuthGuard]},
   {path: 'listaProdutos', component: ListCardProdutosComponent},
   {path: 'CardProdutos', component: CardProdutosComponent},
-  {path: 'cadastroProdutos', component: CadastroProdutosComponent},
+  {path: 'cadastroProdutos', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
   {path: 'pedidos', component: PedidoComponent},
   { path: 'item-pedido', component: ItemPedidoComponent },
 

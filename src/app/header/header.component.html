@@ -1,0 +1,13 @@
+<header>
+    <nav>
+     
+      <div *ngIf="nomeUsuario">
+        <span>Olá, {{ nomeUsuario }}, {{idUsuario}}</span>
+
+        <!-- Adicione um link para logout se necessário -->
+        <button mat-menu-item>
+          <span (click)="logout()">Logout</span>
+        </button>
+      </div>
+    </nav>
+  </header>
