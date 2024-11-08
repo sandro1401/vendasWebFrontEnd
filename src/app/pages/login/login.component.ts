@@ -42,7 +42,7 @@ export class LoginComponent {
             sessionStorage.setItem('usuario.id', usuario.id);
          
             
-            this.router.navigate(['/listaProdutos'])
+            this.router.navigate(['/produtos'])
               .then( () => {
                 window.location.reload()
               });

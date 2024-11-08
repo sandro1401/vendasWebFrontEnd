@@ -3,8 +3,10 @@
     <!--<img src="/imagem.png" alt="produto" class="card-img-top" />-->
         <section class="products">
             <div class="product-card">
-                <div class="card">
-                    <img class="card-img-top"> {{produto.imagem_url}}
+                <div class="card" *ngFor="let imagem of imagensTratadas">
+                    <a href="{{imagem}}">
+                        <img class="card-img-top" src="{{imagem.imagem_url}" alt="imagem"> 
+                    </a>
                 </div>
                 <h2 class="card-title">{{produto.nome}}</h2 >
                 <div class="price">R$ {{produto.preco}}</div>
@@ -12,5 +14,7 @@
                 <button (click)="adicionarProdutoAoPedido(produto)">Comprar</button>
             </div>
         </section>
+{{produto | json}}
+        
 </div>
 

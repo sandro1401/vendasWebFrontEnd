@@ -24,12 +24,20 @@
     <div class="mb-3">
         <label for="IdUsuario" class="form-label">USUARIO:</label>
         <input  [(ngModel)]="produto.usuarioId" class="form-control"
-            id="IdCategroria" placeholder="Usuario ...">
+            id="IdUsuario" placeholder="Usuario ...">
     </div>
     <div class="mb-3">
-        <label for="imagem" class="form-label">IMAGEM:</label>
-        <input  [(ngModel)]="produto.imagem_url" class="form-control"
-            id="imagem" placeholder="imagem ...">
+        <label for="imagem_url" class="label-upload">IMAGEM:</label>
+        <input type="file" (change)="selecionarArquivo($event)" accept="image/png, image/jpeg" class="form-control" 
+        id="imagem_url">
+        <!-- <label for="imagem" class="label-upload">Imagem do Produto<mat-icon 
+            class="check-icon">upload</mat-icon></label> -->
+        <!-- <input  class="form-control"
+        type="file" multiple (change)="selecionarArquivos($event)" 
+        accept="image/x-png,image/jpeg"  id="imagem" placeholder="imagem ..."> -->
+            <!-- <input  type="file" (change)="selecionarArquivos($event)"
+            id="imagem"
+             accept="image/x-png,image/jpeg" id="imagem"> -->
     </div>
     <button class="btn btn-primary me-3" (click)="salvar()" >
         {{botaoAcao}}
@@ -37,6 +45,7 @@
     <button class="btn btn-primary" (click)="voltar()">
         VOLTAR
     </button>
+    
 
 
     

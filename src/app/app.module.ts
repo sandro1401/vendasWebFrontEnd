@@ -20,6 +20,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
+import { ListaProdutosComponent } from './pages/lista-produtos/lista-produtos.component';
+import { PesquisaProdutoPipe } from './pesquisa-produto.pipe';
+import { ImagensProdutosComponent } from './imagens-produtos/imagens-produtos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +36,9 @@ import { MatTooltip } from '@angular/material/tooltip';
     PedidoComponent,
     ItemPedidoComponent,
     HeaderComponent,
+    ListaProdutosComponent,
+    PesquisaProdutoPipe,
+    ImagensProdutosComponent,
    
 
   ],

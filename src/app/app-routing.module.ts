@@ -8,19 +8,22 @@ import { CardProdutosComponent } from './pages/card-produtos/card-produtos.compo
 import { CadastroProdutosComponent } from './pages/cadastro-produtos/cadastro-produtos.component';
 import { PedidoComponent } from './pages/pedido/pedido.component';
 import { ItemPedidoComponent } from './pages/item-pedido/item-pedido.component';
+import { ListaProdutosComponent } from './pages/lista-produtos/lista-produtos.component';
 import { AuthGuard } from './service/auth/auth.guard';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'novoUsuario', component: CadastroUsuarioComponent},
   {path: 'lista', component: ListUsuariosComponent, canActivate: [AuthGuard]},
   {path: 'edit/:id', component: CadastroUsuarioComponent, canActivate: [AuthGuard]},
-  {path: 'listaProdutos', component: ListCardProdutosComponent},
+  {path: 'produtos', component: ListCardProdutosComponent},
+ {path: 'listaProdutos', component: ListaProdutosComponent, canActivate: [AuthGuard]},
   {path: 'CardProdutos', component: CardProdutosComponent},
   {path: 'cadastroProdutos', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
+  {path: 'editProduto/:id', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
   {path: 'pedidos', component: PedidoComponent, canActivate: [AuthGuard]},
   { path: 'item-pedido', component: ItemPedidoComponent, canActivate: [AuthGuard] },
 
- { path: '', redirectTo: '/listaProdutos', pathMatch: 'full' }, 
+ { path: '', redirectTo: '/produtos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },
 
 ];

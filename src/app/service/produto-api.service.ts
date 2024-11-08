@@ -25,14 +25,21 @@ export class ProdutoApiService {
       const uri = `${BASE_API}/${id}`;
       return this.http.get<Produto>(uri);
     }
-  
     inserir(produto: Produto): Observable<Produto> {
       return this.http.post(BASE_API, produto, httpOptions);
     }
+    // inserir(formData: FormData): Observable<any> {
+    //   const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+    //   return this.http.post(BASE_API,formData, { headers: headers });
+    // }
   
     editar(id: number, produto:Produto): Observable<Produto> {
       const uri = `${BASE_API}/${id}`;
       return this.http.put<Produto>(uri,produto,httpOptions);
+    }
+    editarImagemProduto(id: any, formData: FormData): Observable<any> {
+      const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+      return this.http.put(`${BASE_API}/imagens-prod/${id}`, formData, { headers: headers })
     }
   
     deletar(id: number): Observable<Produto> {
@@ -41,5 +48,13 @@ export class ProdutoApiService {
     }
     obterProdutos(): Observable<Produto[]> {
       return this.http.get<Produto[]>(BASE_API);
+    }
+    inserirComImagem(produtoData: FormData):Observable<any> {
+      const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
+      return this.http.post(BASE_API, produtoData, { headers: headers });
+    }
+    
+    editarComImagem(id: number, produtoData: FormData) {
+      return this.http.put(`${BASE_API}/${id}`, produtoData, httpOptions);
     }
 }
