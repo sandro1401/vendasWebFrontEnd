@@ -1,18 +1,15 @@
+
+
 <div class="container">
-    <section class="products">
-        <div class="product-card" >
-             <div class="card-produtos" >
-                <img class="card-img-top"   
-          [src]="imagensTratadas" alt="imagem do produto">
-                
-            </div>
-            <h2 class="card-title">{{produto.nome}}</h2>
-            <div class="price">R$ {{produto.preco}}</div>
-            <p class="card-text">{{produto.descricao}}</p>
-           
-            <button (click)="adicionarProdutoAoPedido(produto)">Comprar</button>
-           
-        </div>
-        
-    </section>
+  <section class="products">
+    <div class="product-card" >
+      <div class="card-produtos">
+       <img class="card-ims-top" [src]="imagensTratadas[produto.id]" >
+      </div>
+      <h2 class="card-title">{{ produto.nome }}</h2>
+      <div class="price">R$ {{ produto.preco }}</div>
+      <p class="card-text">{{ produto.descricao }}</p>
+      <button (click)="adicionarProdutoAoPedido(produto)">Comprar</button>
+    </div>
+  </section>
 </div>

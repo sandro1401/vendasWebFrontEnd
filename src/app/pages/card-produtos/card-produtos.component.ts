@@ -13,11 +13,12 @@ import { UsuarioApiService } from '../../service/usuario-api.service';
 })
 export class CardProdutosComponent implements OnInit {
   @Input() produto: any = '';
-  // produto: any = '';
+  
   produtos: Produto[] = [];
   users: Usuario[] = [];
   @Input() imagens_url: string = '';
-  imagensTratadas: string[] = [];
+  imagensTratadas: { [key: number]: string[] } = {};
+ 
   indiceImagAtual: number = 0;
 
   
@@ -31,130 +32,37 @@ export class CardProdutosComponent implements OnInit {
 
   
     }
-    proximaImagem() {
-      this.indiceImagAtual = (this.indiceImagAtual + 1) % this.imagensTratadas.length;
+
+    carregarProdutos() {
+      this.produtoService.obterProdutos().subscribe((produtos) => {
+        this.produtos = produtos.map((produto) => {
+          if (produto.imagem_url) {
+            if (Array.isArray(produto.imagem_url)) {
+              // Caso seja um array de imagens
+              const imagensCorrigidas = produto.imagem_url.map((imgPath) => {
+                // Remove caracteres extras e corrige o caminho
+                return `http://localhost:3000/${imgPath.replace(/[{}"]/g, '').replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
+              });
+              if (produto.id) {
+                this.imagensTratadas[produto.id] = imagensCorrigidas;
+              }
+            } else if (typeof produto.imagem_url === 'string') {
+              // Caso seja uma string (uma única imagem)
+              const imagemCorrigida = `http://localhost:3000/${produto.imagem_url.replace(/[{}"]/g, '').replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
+              if (produto.id) {
+                this.imagensTratadas[produto.id] = [imagemCorrigida];
+              }
+            }
+          }
+    
+          return produto;
+        });
+    
+        this.changeDetectorRef.detectChanges();
+      });
     }
     
-    imagemAnterior() {
-      this.indiceImagAtual = (this.indiceImagAtual - 1 + this.imagensTratadas.length) % this.imagensTratadas.length;
-    }
-//     carregarProdutos() {
-//       this.produtoService.obterProdutos().subscribe((produtos) => {
-//         this.produtos = produtos;
-    
-      
-//           if(this.imagens_url.indexOf('{')<0){
-//                 this.imagensTratadas.push(this.produto.imagem_url);
-//               }else{
-//                 this.produto.imagens_url = this.produto.imagens_url.replace(/{|}|"/g, '');
-//                 this.imagensTratadas = this.produto.imagens_url.split(',');
-              
-//               }
-//               this.changeDetectorRef.detectChanges();
-// })};
-    
-// carregarProdutos() {
-//   this.produtoService.obterProdutos().subscribe((produtos) => {
-//     this.produtos = produtos.map((produto) => {
-//       // Verifica e ajusta o caminho de uma imagem única
-//       if (produto.imagem_url) {
-//         produto.imagem_url = `${produto.imagem_url.replace(/\\/g,'/')}`;
-//       }
 
-//       // Verifica e ajusta o caminho de múltiplas imagens, se necessário
-//       if (produto.imagem_url && produto.imagem_url.indexOf('{') < 0) {
-//         // Adiciona a imagem única em imagensTratadas
-//         this.imagensTratadas.push(produto.imagem_url);
-//       } else if (produto.imagem_url) {
-//         // Remove caracteres extras ({, }, ") e separa múltiplas URLs
-//         produto.imagem_url = produto.imagem_url.replace(/{|}|"/g, '');
-//         // Adiciona a URL base a cada imagem e corrige as barras
-//         this.imagensTratadas = produto.imagem_url.split(',').map(
-//           (imgPath) => `http://localhost:3000/${imgPath.trim().replace(/\\/g, '/')}`
-//         );
-//       }
-
-//       return produto;
-//     });
-
-// carregarProdutos() {
-//   this.produtoService.obterProdutos().subscribe((produtos) => {
-//     this.produtos = produtos.map((produto) => {
-//       // Verifica se imagem_url é uma string e converte em array, se necessário
-//       if (typeof produto.imagem_url === 'string') {
-//         produto.imagem_url = produto.imagem_url.replace(/{|}|"/g, '').split(',').map(
-//           (imgPath: string) => `http://localhost:3000/${imgPath.trim().replace(/\\/g, '/')}`
-//         );
-//       }
-
-//       return produto;
-//     });
-
-//     // Detecta mudanças para atualização do template
-//     this.changeDetectorRef.detectChanges();
-//   });
-// }
-
-
-carregarProdutos() {
-  this.produtoService.obterProdutos().subscribe((produtos) => {
-    this.produtos = produtos.map((produto) => {
-      // Verifica e ajusta o caminho de uma imagem única
-      if (produto.imagem_url) {
-        produto.imagem_url = `${produto.imagem_url.replace(/\\/g,'/')}`;
-      }
-
-      // Verifica e ajusta o caminho de múltiplas imagens, se necessário
-      if (produto.imagem_url && produto.imagem_url.indexOf('{') < 0) {
-        // Adiciona a imagem única em imagensTratadas
-        this.imagensTratadas.push(produto.imagem_url);
-      } else if (produto.imagem_url) {
-        // Remove caracteres extras ({, }, ") e separa múltiplas URLs
-        produto.imagem_url = produto.imagem_url.replace(/{|}|"/g, '');
-        // Adiciona a URL base a cada imagem e corrige as barras
-        this.imagensTratadas = produto.imagem_url.split(',').map(
-          (imgPath) => `http://localhost:3000/${imgPath.trim().replace(/\\/g, '/')}`
-        );
-      }
-
-      return produto;
-    });
-
-    // Detecta mudanças para atualização do template
-    this.changeDetectorRef.detectChanges();
-  });
-}
-    
-// carregarProdutos() {
-//   this.produtoService.obterProdutos().subscribe((produtos) => {
-//     this.produtos = produtos.map((produto) => {
-//       // Verifica e ajusta o caminho de uma imagem única
-//       if (produto.imagem_url) {
-//         produto.imagem_url = `${produto.imagem_url.replace(/\\/g,'/')}`;
-//       }
-
-//       // Verifica e ajusta o caminho de múltiplas imagens, se necessário
-//       if (produto.imagem_url && produto.imagem_url.indexOf('{') < 0) {
-//         // Adiciona a imagem única em imagemTratadas
-//         this.imagensTratadas.push(produto.imagem_url);
-//       } else if (produto.imagem_url) {
-//         // Remove caracteres extras ({, }, ") e separa múltiplas URLs
-//         produto.imagem_url = produto.imagem_url.replace(/{|}|"/g, '');
-//         // Adiciona a URL base a cada imagem e corrige as barras
-//         this.imagensTratadas = produto.imagem_url.split(',').map(
-//           (imgPath) => `http://localhost:3000/${imgPath.trim().replace(/\\/g, '/')}`
-//         );
-//       }
-
-//       return produto;
-//     });
-
-//     // Detecta mudanças para atualização do template
-//     this.changeDetectorRef.detectChanges();
-//   });
-// }
-   
-   
     adicionarProdutoAoPedido(produto: Produto)  {
       // this.pedidoService.adicionarProduto(produto);
       this.router.navigate(['/pedidos'],{

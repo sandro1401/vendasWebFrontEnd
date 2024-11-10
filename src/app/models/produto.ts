@@ -5,6 +5,6 @@ export class Produto {
     preco?: number;
     categoriaId?: number;
     usuarioId?: number;
-    imagem_url?: string;
-    
+    imagem_url?: string | string [];
+  
 }
