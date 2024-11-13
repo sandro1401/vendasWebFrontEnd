@@ -1,7 +1,22 @@
-<div class="container-item-pedido">
-  <h2>Itens do Pedido</h2>
 
-  <!-- Lista de itens do pedido -->
+
+
+<!-- 
+<h2>Adicionar Produtos ao Pedido</h2>
+
+<ul>
+  <li *ngFor="let produto of produtosDisponiveis">
+    {{ produto.nome }} - {{ produto.preco | currency }}
+    <button (click)="adicionarProduto(produto)">Adicionar ao Pedido</button>
+  </li>
+</ul>
+
+<button (click)="finalizarAdicaoDeProdutos()">Finalizar Adição</button> -->
+
+ <div class="container-item-pedido">
+  <h2>Itens do Pedido</h2> 
+
+ 
   <ul *ngIf="produtosDisponiveis.length > 0; else semItens">
     <li *ngFor="let produto of produtosDisponiveis">
       <div class="produto-disponivel">
@@ -10,7 +25,7 @@
         <button (click)="selecionarProduto(produto)">Selecionar</button>
       </div>
     </li>
-  </ul>
+  </ul> 
 
   <!-- Mensagem quando não há itens disponíveis -->
   <ng-template #semItens>
@@ -20,7 +35,7 @@
     <h2>Itens do Pedido #{{ pedidoId }}</h2>
     <!-- Seu código para exibir e adicionar itens ao pedido -->
    <!-- Itens selecionados para o pedido -->
-   <div class="itens-selecionados" *ngIf="produtoSelecionado">
+  <div class="itens-selecionados" *ngIf="produtoSelecionado">
     <h3>Item Selecionado para o Pedido:</h3>
     <p>Nome: {{ produtoSelecionado.nome }}</p>
     <p>Preço: R$ {{ produtoSelecionado.preco | number: '1.2-2' }}</p>
@@ -32,25 +47,23 @@
         <option [value]="true">Sim</option>
         <option [value]="false">Não</option>
       </select>
-    </p>
+    </p> 
       
     <div class="total-pedido">
       <strong>Valor Total: R$ {{ calcularValorTotal() | number: '1.2-2' }}</strong>
     </div>
-    <button (click)="adicionarProdutoAoPedido()">Adicionar ao Pedido</button>
+    <button (click)="adicionarProduto(produtoSelecionado)">Adicionar ao Pedido</button>
   </div>
   </div>
- 
+
 
   <!-- Opicional: Lista de itens já adicionados ao pedido (se desejar exibir aqui) -->
-  <!--
-  <div class="itens-adicionados" *ngIf="pedidoService.itensPedido$.value.length > 0">
+  
+  <!-- <div class="itens-adicionados" *ngIf="pedidoService.itensPedido$.value.length > 0">
     <h3>Itens Adicionados ao Pedido:</h3>
     <ul>
       <li *ngFor="let item of pedidoService.itensPedido$.value">
         {{ item.nome }} - R$ {{ item.preco | number: '1.2-2' }}
       </li>
     </ul>
-  </div>
-  -->
-</div>
+  </div>  -->

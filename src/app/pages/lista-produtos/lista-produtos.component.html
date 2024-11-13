@@ -16,9 +16,9 @@
             <th>NOME</th>
             <th>DESCRIÇÃO</th>
             <th>PREÇO</th>
-            <th>CATEGORIA</th>
-            <th>USUARIOID</th>
-            <th>IMAGEM</th>
+            <!-- <th>CATEGORIA</th>
+            <th>USUARIO</th> -->
+            <!-- <th>IMAGEM</th> -->
             <tH>AÇÃO</tH>
         </tr>
     </thead>
@@ -28,9 +28,9 @@
             <td>{{produto.nome}}</td>
             <td>{{produto.descricao}}</td>
             <td>{{produto.preco}}</td>
-            <td>{{produto.categoriaId}}</td>
-            <td>{{produto.usuarioId}}</td>
-            <td>{{produto.imagem_url}}</td>
+            <!-- <td>{{produto.categoriaId}}</td> -->
+            <!-- <td>{{produto.usuarioId}}</td> -->
+            <!-- <td>{{produto.imagem_url}}</td> -->
             <td><a class='btn btn-primary' routerLink="/editProduto/{{produto.id}}">Editar</a></td>
             <td><a class='btn btn-primary' routerLink="/listaProdutos" (click)="deletar(produto.id)" >Deletar</a></td>
         </tr>

@@ -1,3 +1,4 @@
+import { ItemPedido } from "./item-pedido";
 export class Pedido {
     id?: number;
     quantidade?: number;  
@@ -5,5 +6,6 @@ export class Pedido {
     data_Pedido?: Date;  
     produtoId?: number;
     usuarioId?: number;
+    itens?: ItemPedido[];
 }
 

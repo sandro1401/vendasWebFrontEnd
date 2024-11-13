@@ -1,5 +1,5 @@
 export class ItemPedido {
-    id?: number;
+    id?: number ;
     quantidade?: number;  
     preco_unitario?: number;  
     pedidoId?: number;

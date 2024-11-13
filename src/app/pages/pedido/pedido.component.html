@@ -1,29 +1,97 @@
+<div *ngIf="pedidoAtual">
+  <h2>Detalhes do Pedido #{{ pedidoAtual.id }}</h2>
+{{pedidoAtual | json}}
+  <div>
+    <p><strong>Data do Pedido:</strong> {{ pedidoAtual.data_Pedido| date }}</p>
+    <p><strong>Usuário ID:</strong> {{ pedidoAtual.usuarioId }}</p>
+    <p><strong>Valor Total:</strong> {{ pedidoAtual.valorTotal | currency }}</p>
+  </div>
+
+  <h3>Itens no Pedido</h3>
+  <table *ngIf="pedidoAtual.itens && pedidoAtual.itens.length > 0">
+    <thead>
+      <tr>
+        <th>Produto ID</th>
+        <th>Quantidade</th>
+        <th>Preço Unitário</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pedidoAtual.itens">
+        <td>{{ item.produtoId }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.preco_unitario | currency }}</td>
+        <td>{{ (item.preco_unitario! * item.quantidade!) | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<button (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
+
+
+<!-- 
 <div class="pedido">
+  <h2>Resumo do Pedido</h2>
+  <div>
+<h2>Pedido #{{ pedidoAtual!.id }}</h2>
+<p>Data: {{ pedidoAtual!.data_Pedido | date }}</p>
+<p>Valor Total: {{ pedidoAtual!.valorTotal | currency }}</p>
+
+
+<div *ngIf="pedidoAtual?.itens?.length">
+    <h3>Itens do Pedido</h3>
+    <ul>
+        <li *ngFor="let item of pedidoAtual.itens">
+            Produto ID: {{ item.produtoId }}, Quantidade: {{ item.quantidade }},
+            Preço Unitário: {{ item.preco_unitario }}
+        </li>
+    </ul>
+</div> -->
+
+
+
+
+
+<!-- <h2>Pedido</h2>
+<p>Total: {{ pedido.valorTotal | currency }}</p>
+
+<ul>
+  <li *ngFor="let item of itensPedido">
+    Produto ID: {{ item.produtoId }} |
+    Quantidade: 
+    <input [(ngModel)]="item.quantidade" (change)="atualizarValorTotal()" type="number" min="1">
+    | Preço Unitário: {{ item.preco_unitario ?? 0 | currency }}
+    | Subtotal: {{ (item.quantidade ?? 0) * (item.preco_unitario ?? 0) | currency }}
+  </li>
+</ul>
+<h2>Adicionar Produtos ao Pedido</h2>
+
+<button (click)="irParaItemPedido()">Adicionar mais produtos</button>
+<button (click)="finalizarPedido()">Finalizar Pedido</button>
+ -->
+
+<!-- <div class="pedido">
     <h2>Resumo do Pedido</h2>
-  
-    <!-- Lista de itens do pedido -->
-   
     <div>
       <h1>Pedido</h1>
-       <!-- Botão para ir para a tela de Item Pedido -->
+      
     <div class="acoes-pedido">
       <a routerLink="/item-pedido" class="btn-adicionar">Adicionar Produtos</a>
     </div>
       <ul>
-        <!-- <li *ngFor="let item of itensSelecionados">
-          {{ item.quantidade }} x {{ item.produtoId }} (R$ {{ item.valorTotal }})
-        </li> -->
-      </ul>
+         <li *ngFor="let item of itensSelecionados"> -->
+          <!-- {{ item.quantidade }} x {{ item.produtoId }} (R$ {{ item.valorTotal }}) -->
+        <!-- </li> --> 
+      <!-- </ul> -->
       <!-- <button (click)="criarPedido()">Criar Pedido</button> -->
-    </div>
+    <!-- </div> -->
     <!-- Mensagem quando não há itens -->
-    <ng-template #semItens>
+    <!-- <ng-template #semItens>
       <p>O pedido está vazio.</p>
-    </ng-template>
-  
-   
-  
+    </ng-template> -->
     <!-- Total do pedido -->
-   
-  </div>
+  <!-- </div> --> 
   

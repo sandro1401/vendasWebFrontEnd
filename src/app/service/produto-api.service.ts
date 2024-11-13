@@ -57,4 +57,8 @@ export class ProdutoApiService {
     editarComImagem(id: number, produtoData: FormData) {
       return this.http.put(`${BASE_API}/${id}`, produtoData, httpOptions);
     }
+    getUsuarioId(): any {
+      const usuarioId = sessionStorage.getItem('usuario.id');
+      return usuarioId;
+    }
 }

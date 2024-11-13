@@ -14,13 +14,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './pedido.component.html',
 })
 export class PedidoComponent implements OnInit {
- 
+  // pedido: Pedido = new Pedido();
+  pedidoId!: number;
+  pedidoAtual!: Pedido;
+  novoItem: ItemPedido = new ItemPedido();
+  itensPedido: ItemPedido[] = [];
  itemPedido: any;
-  novoPedido: Pedido = {
+  pedido: Pedido = {
     quantidade: 1,  
     valorTotal: 0,
     data_Pedido: new Date(),
-    produtoId: undefined,  
+    produtoId: undefined,
+    usuarioId: undefined,  
   }
  
   valorTotal: number = 0;
@@ -33,51 +38,119 @@ export class PedidoComponent implements OnInit {
     private router: Router, private activatedRoute: ActivatedRoute) {
       this.activatedRoute.queryParams.subscribe(params =>{
        console.log(params)
-        this.novoPedido.produtoId = parseInt(params['produtoId'])
-        this.novoPedido.usuarioId = params['usuarioId'];
+        this.pedido.produtoId = parseInt(params['produtoId'])
+        this.pedido.usuarioId = params['usuarioId'];
+        
      
        
       })
     }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.novoPedido.usuarioId = params['usuarioId']
-    });
-    const state = this.activatedRoute?.snapshot.paramMap.get('state');
-    if (state) {
-      const newState = JSON.parse(state);
-      if (newState && newState.novoItemId) {
-        this.buscarPedido(newState.novoItemId);
-      }
+    const pedidoId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (pedidoId) {
+      this.carregarPedido();
     }
-  
+    // const pedidoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    // if (pedidoId) {
+    //     this.pedidoService.getPedidoById(pedidoId).subscribe({
+    //         next: (pedido) => {
+    //             this.pedidoAtual = pedido;
+    //         },
+    //         error: (err) => console.error('Erro ao carregar o pedido:', err)
+    //     });
+    // }
+    //     this.carregarPedido()
   }
-  buscarPedido(id: number): void {
-    this.pedidoService.getPedidoById(id).subscribe(
-      (response: any) => {
-        this.itemPedido = response;
-        console.log('Pedido encontrado:', this.itemPedido);
+
+
+  adicionarItemAoPedido(produto:Produto, quantidade: number) {
+    
+    this.novoItem.produtoId = produto.id;
+    this.novoItem.quantidade = quantidade;
+    this.novoItem.pedidoId = this.pedidoAtual.id;
+
+    // Adiciona o item ao pedido
+    this.pedidoService.adicionarProdutoPedido(
+        produto,
+        quantidade,
+        this.pedidoAtual.id!
+    ).subscribe({
+        next: (itemPedido) => {
+            console.log('Item adicionado ao pedido:', itemPedido);
+            // Atualiza a lista de itens no pedido atual (opcional)
+            this.pedidoAtual.itens = this.pedidoAtual.itens || [];
+            this.pedidoAtual.itens.push(itemPedido);
+        },
+        error: (err) => console.error('Erro ao adicionar item:', err)
+    });
+}
+
+carregarPedido() {
+  const pedidoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+  if (pedidoId) {
+    this.pedidoService.getPedidoById(pedidoId).subscribe({
+      next: (pedido) => {
+        this.pedidoAtual = pedido;
+        console.log('Pedido carregado:', this.pedidoAtual); // Verifique os dados no console
       },
-      (error) => {
-        console.error('Erro ao buscar pedido:', error);
-        // Tratar erro, por exemplo, exibindo uma mensagem para o usuário
-      }
-    );}
-  adicionarProduto(produto: Produto): void {
-    this.pedidoService.adicionarProduto(produto, this.quantidade, this.valorTotal, this.concluido).subscribe(
-      (itemPedido: ItemPedido) => {
-        // Acesse o preço do item de pedido (supondo que esteja em itemPedido.preco)
-        const preco = itemPedido.preco_unitario;
-        if (preco)
-        this.valorTotal = preco * this.quantidade;
-        console.log('Item de pedido adicionado com sucesso. Valor Total:', this.valorTotal);
+      error: (err) => {
+        console.error('Erro ao carregar o pedido:', err);
       },
-      (error) => {
-        console.error('Erro ao adicionar produto ao pedido:', error);
-        // Tratar erro, por exemplo, exibindo uma mensagem para o usuário
-      }
-    );
+    });
   }
 }
+
+
+  atualizarValorTotal() {
+    this.pedido.valorTotal = this.itensPedido.reduce((total, item) => {
+      const preco = item.preco_unitario ?? 0;
+      const quantidade = item.quantidade ?? 0;
+      return total + (preco * quantidade);
+    }, 0);
+  }
+  irParaItemPedido() {
+    if (this.pedido.id) {
+      this.router.navigate(['/item-pedido', this.pedido.id]);
+    } else {
+      console.error('ID do pedido está indefinido. Não é possível navegar para a página de itens do pedido.');
+      // Opcional: exibir uma mensagem para o usuário ou tomar alguma ação
+    }
+  }
+
  
+  finalizarPedido() {
+    this.pedido.quantidade = this.itensPedido.length;
+  
+    this.pedidoService.salvarPedido(this.pedido, this.itensPedido).subscribe(response => {
+      console.log("Pedido salvo com sucesso!", response);
+      // Redirecione ou mostre uma mensagem de confirmação
+    });
+  }
+}
+  // buscarPedido(id: number): void {
+  //   this.pedidoService.getPedidoById(id).subscribe(
+  //     (response: any) => {
+  //       this.itemPedido = response;
+  //       console.log('Pedido encontrado:', this.itemPedido);
+  //     },
+  //     (error) => {
+  //       console.error('Erro ao buscar pedido:', error);
+  //       // Tratar erro, por exemplo, exibindo uma mensagem para o usuário
+  //     }
+  //   );}
+  // adicionarProduto(produto: Produto): void {
+  //   this.pedidoService.adicionarProduto(produto, this.quantidade, this.valorTotal, this.concluido).subscribe(
+  //     (itemPedido: ItemPedido) => {
+  //       // Acesse o preço do item de pedido (supondo que esteja em itemPedido.preco)
+  //       const preco = itemPedido.preco_unitario;
+  //       if (preco)
+  //       this.valorTotal = preco * this.quantidade;
+  //       console.log('Item de pedido adicionado com sucesso. Valor Total:', this.valorTotal);
+  //     },
+  //     (error) => {
+  //       console.error('Erro ao adicionar produto ao pedido:', error);
+  //       // Tratar erro, por exemplo, exibindo uma mensagem para o usuário
+  //     }
+  //   );
+  // }

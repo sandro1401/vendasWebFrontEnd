@@ -20,8 +20,8 @@ const routes: Routes = [
   {path: 'CardProdutos', component: CardProdutosComponent},
   {path: 'cadastroProdutos', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
   {path: 'editProduto/:id', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
-  {path: 'pedidos', component: PedidoComponent, canActivate: [AuthGuard]},
-  { path: 'item-pedido', component: ItemPedidoComponent, canActivate: [AuthGuard] },
+  {path: 'pedidos/:id', component: PedidoComponent},
+  { path: 'item-pedido/:id', component: ItemPedidoComponent, canActivate: [AuthGuard] },
 
  { path: '', redirectTo: '/produtos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },
