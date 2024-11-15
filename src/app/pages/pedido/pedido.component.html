@@ -1,32 +1,28 @@
 <div *ngIf="pedidoAtual">
   <h2>Detalhes do Pedido #{{ pedidoAtual.id }}</h2>
-{{pedidoAtual | json}}
+
+ 
   <div>
-    <p><strong>Data do Pedido:</strong> {{ pedidoAtual.data_Pedido| date }}</p>
-    <p><strong>Usuário ID:</strong> {{ pedidoAtual.usuarioId }}</p>
-    <p><strong>Valor Total:</strong> {{ pedidoAtual.valorTotal | currency }}</p>
+    
+    <p><strong>Data do Pedido:</strong> {{ pedidoAtual.data_Pedido! | data}}</p>
+    <p><strong>Quantidade de Produtos:</strong> {{ pedidoAtual.quantidade}}</p>
+    <p><strong>Valor Total:</strong> {{ pedidoAtual.valorTotal | moeda }}</p>
   </div>
 
-  <h3>Itens no Pedido</h3>
-  <table *ngIf="pedidoAtual.itens && pedidoAtual.itens.length > 0">
-    <thead>
-      <tr>
-        <th>Produto ID</th>
-        <th>Quantidade</th>
-        <th>Preço Unitário</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of pedidoAtual.itens">
-        <td>{{ item.produtoId }}</td>
-        <td>{{ item.quantidade }}</td>
-        <td>{{ item.preco_unitario | currency }}</td>
-        <td>{{ (item.preco_unitario! * item.quantidade!) | currency }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <h3>Itens do Pedido:</h3>
+  <div *ngIf="pedidoAtual.itens && pedidoAtual.itens.length > 0">
+    <ul>
+      <li *ngFor="let item of pedidoAtual.itens">
+        <!-- <p><strong>Produto:</strong> {{ item.produto?.nome }}</p> -->
+        <p><strong>Quantidade:</strong> {{ item.quantidade }}</p>
+        <p><strong>Preço Unitário:</strong> {{ item.preco_unitario | currency }}</p>
+        <!-- <p><strong>Subtotal:</strong> {{ item.quantidade * item.preco_unitario | currency }}</p> -->
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="pedidoAtual.itens?.length === 0">
+    <p>Nenhum item foi adicionado a este pedido ainda.</p>
+  </div>
 
 
 <button (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>

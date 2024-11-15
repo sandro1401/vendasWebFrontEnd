@@ -43,17 +43,16 @@ export class CardProdutosComponent implements OnInit {
         this.produtos = produtos.map((produto) => {
           if (produto.imagem_url) {
             if (Array.isArray(produto.imagem_url)) {
-              // Caso seja um array de imagens
               const imagensCorrigidas = produto.imagem_url.map((imgPath) => {
-                // Remove caracteres extras e corrige o caminho
-                return `http://localhost:3000/${imgPath.replace(/[{}"]/g, '').replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
+                return `http://localhost:3000/${imgPath.replace(/[{}"]/g, '')
+                  .replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
               });
               if (produto.id) {
                 this.imagensTratadas[produto.id] = imagensCorrigidas;
               }
             } else if (typeof produto.imagem_url === 'string') {
-              // Caso seja uma string (uma única imagem)
-              const imagemCorrigida = `http://localhost:3000/${produto.imagem_url.replace(/[{}"]/g, '').replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
+              const imagemCorrigida = `http://localhost:3000/${produto.imagem_url.replace(/[{}"]/g, '')
+                .replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
               if (produto.id) {
                 this.imagensTratadas[produto.id] = [imagemCorrigida];
               }
@@ -66,39 +65,49 @@ export class CardProdutosComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       });
     }
-  
     adicionarProdutoAoPedido(produto: Produto) {
-      const quantidade = 1; // Defina uma quantidade padrão ou permita o usuário especificar
+      const quantidade = 1;
   
       if (!this.pedidoAtual) {
-          // Se não houver um pedido atual, cria um novo pedido
           this.pedidoAtual = new Pedido();
           this.pedidoAtual.quantidade = quantidade;
-          this.pedidoAtual.usuarioId = this.obterUsuarioLogado(); // Defina o usuário atual, se necessário
+          this.pedidoAtual.usuarioId = this.obterUsuarioLogado();
           this.pedidoAtual.data_Pedido = new Date();
           this.pedidoAtual.produtoId = produto.id;
-          this.pedidoAtual.valorTotal = produto.preco! * quantidade; // Inicialize o valor total em 0
-          
+          this.pedidoAtual.valorTotal = produto.preco! * quantidade;
+  
           if (!this.pedidoAtual.usuarioId || !this.pedidoAtual.produtoId || !this.pedidoAtual.quantidade || !this.pedidoAtual.valorTotal) {
-            console.error('Erro: Informações incompletas para criar o pedido');
-            return;
-        }
-          // Crie o novo pedido e, ao concluir, adicione o produto como item
+              console.error('Erro: Informações incompletas para criar o pedido');
+              return;
+          }
+  
           this.pedidoService.criarPedido(this.pedidoAtual).subscribe(
-             (pedido) => {
-                  this.pedidoAtual = pedido;
-                 
-                  //  pedido recém-criado
-                  this.router.navigate(['/pedidos', this.pedidoAtual.id]);
-                  // this.adicionarItemAoPedido(produto, quantidade);
+              (response: any) => { 
+                  if (response && response.pedido && response.pedido.id) {
+                      console.log('Pedido criado com sucesso! ID:', response.pedido.id);
+  
+                      this.pedidoAtual.id = response.pedido.id;
+  
+                      this.router.navigate(['/pedidos', this.pedidoAtual.id]);
+                  } else {
+                      console.error('Erro: Resposta inesperada do servidor ao criar pedido:', response);
+                  }
+              },
+              (erro) => {
+                  console.error('Erro ao criar o pedido:', erro);
               }
-             
           );
       } else {
-          // Se já houver um pedido em andamento, 
-          this.router.navigate(['/pedidos', this.pedidoAtual.id]);
+          if (this.pedidoAtual.id) {
+              this.router.navigate(['/pedidos', this.pedidoAtual.id]);
+          } else {
+              console.error('Erro: ID do pedidoAtual não está definido.');
+          }
       }
   }
+  
+   
+  
   
   private adicionarItemAoPedido(produto: Produto, quantidade: number) {
       if (this.pedidoAtual?.id) {
@@ -117,39 +126,6 @@ export class CardProdutosComponent implements OnInit {
   }
   
 
-    // adicionarProdutoAoPedido(produto: Produto) {
-    //   const quantidade = 1; // Ou defina uma quantidade padrão ou permitida pelo usuário
-  
-    //   // Se não houver um pedido atual, crie um novo pedido
-    //   if (!this.pedidoAtual) {
-    //     this.pedidoAtual = new Pedido();
-    //     this.pedidoAtual.quantidade = quantidade;
-    //     this.pedidoAtual.usuarioId = this.obterUsuarioLogado(); // Defina o usuário atual, se necessário
-    //     this.pedidoAtual.data_Pedido = new Date();
-    //     this.pedidoAtual.valorTotal = 0; // Inicialize com 0
-  
-    //     // Salve o novo pedido e, ao concluir, adicione o item
-    //     this.pedidoService.criarPedido(this.pedidoAtual).subscribe((pedido) => {
-    //       this.pedidoAtual = pedido;
-  
-    //       // Agora, adicione o item ao pedido criado
-    //       this.adicionarItemAoPedido(produto, quantidade);
-    //     });
-    //   } else {
-    //     // Se já houver um pedido em andamento, adicione o item diretamente
-    //     this.adicionarItemAoPedido(produto, quantidade);
-    //   }
-    // }
-    // private adicionarItemAoPedido(produto: Produto, quantidade: number) {
-    //   if (this.pedidoAtual?.id) {
-    //     this.pedidoService
-    //       .adicionarProdutoPedido(produto, quantidade, this.pedidoAtual.id)
-    //       .subscribe((itemPedido) => {
-    //         console.log('Item adicionado ao pedido:', itemPedido);
-    //         // Aqui você pode atualizar a interface, mostrar um feedback ao usuário, etc.
-    //       });
-    //   }
-    // }
   
     criarNovoPedido(): number {
       // Função para criar um novo pedido e retornar seu ID
@@ -159,6 +135,7 @@ export class CardProdutosComponent implements OnInit {
   
     obterUsuarioLogado() {
       const usuarioId = sessionStorage.getItem('usuario.id');
+      //console.log(usuarioId)
     return  Number(usuarioId);
     }
 

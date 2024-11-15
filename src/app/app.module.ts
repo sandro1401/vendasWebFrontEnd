@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,9 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { ListaProdutosComponent } from './pages/lista-produtos/lista-produtos.component';
 import { PesquisaProdutoPipe } from './pesquisa-produto.pipe';
 import { ImagensProdutosComponent } from './imagens-produtos/imagens-produtos.component';
+import { DataPipe } from './data.pipe';
+import { MoedaPipe } from './moeda.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,8 @@ import { ImagensProdutosComponent } from './imagens-produtos/imagens-produtos.co
     ListaProdutosComponent,
     PesquisaProdutoPipe,
     ImagensProdutosComponent,
+    DataPipe,
+    MoedaPipe,
    
 
   ],

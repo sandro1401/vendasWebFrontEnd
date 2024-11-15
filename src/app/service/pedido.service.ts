@@ -8,7 +8,7 @@ import { ItemPedido } from '../models/item-pedido';
 import { Usuario } from '../models/usuario';
 
 const BASE_API = 'http://localhost:3000/api/pedido';
-const BASE_API_itens = 'http://localhost:3000/api/Item-pedido';
+const BASE_API_itens = 'http://localhost:3000/api/ItemPedido';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -51,7 +51,16 @@ export class PedidoService {
     );
   }
   getPedidoById(id: number): Observable<Pedido>{
-    return this.http.get(`${BASE_API}/${id}`,)
+    return this.http.get(`${BASE_API}/${id}`).pipe(
+      map((pedido: any) => ({
+        ...pedido,
+        data_Pedido: new Date(pedido.data_pedido),
+        valorTotal: pedido.valortotal,
+        produtoId: pedido.produtoid,
+        usuarioId: pedido.usuarioid,
+        itens: pedido.itens || [] // Certifique-se de que os itens estejam inicializados
+      })) )
+    
   }
 
   adicionarItensAoPedido(pedidoId: number, itens: ItemPedido[]): Observable<any> {
@@ -71,7 +80,9 @@ export class PedidoService {
     return this.http.post<ItemPedido>(`${BASE_API_itens}/${pedidoId}`, body);
   }
 
-
+  getItensPedidoByPedidoId(pedidoId: number) {
+    return this.http.get<ItemPedido[]>(`${BASE_API_itens}/pedido/${pedidoId}`);
+  }
   /**
    * Remove um produto do pedido localmente e envia a requisição para o backend.
    * @param produtoId ID do produto a ser removido

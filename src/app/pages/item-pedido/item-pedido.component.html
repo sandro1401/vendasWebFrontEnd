@@ -1,20 +1,5 @@
-
-
-
-<!-- 
-<h2>Adicionar Produtos ao Pedido</h2>
-
-<ul>
-  <li *ngFor="let produto of produtosDisponiveis">
-    {{ produto.nome }} - {{ produto.preco | currency }}
-    <button (click)="adicionarProduto(produto)">Adicionar ao Pedido</button>
-  </li>
-</ul>
-
-<button (click)="finalizarAdicaoDeProdutos()">Finalizar Adição</button> -->
-
  <div class="container-item-pedido">
-  <h2>Itens do Pedido</h2> 
+  <h2>Adicionar Produtos ao Pedido</h2> 
 
  
   <ul *ngIf="produtosDisponiveis.length > 0; else semItens">
@@ -23,6 +8,11 @@
         <span class="nome-produto">{{ produto.nome }}</span>
         <span class="preco-produto">R$ {{ produto.preco | number: '1.2-2' }}</span>
         <button (click)="selecionarProduto(produto)">Selecionar</button>
+        {{pedidoId | json}}
+      </div>
+      <div>
+        <button (click)="finalizarAdicaoDeProdutos()">Finalizar Adição</button>
+
       </div>
     </li>
   </ul> 
@@ -31,7 +21,9 @@
   <ng-template #semItens>
     <p>Nenhum item disponível para adicionar ao pedido.</p>
   </ng-template>
+
   <div *ngIf="pedidoId">
+    
     <h2>Itens do Pedido #{{ pedidoId }}</h2>
     <!-- Seu código para exibir e adicionar itens ao pedido -->
    <!-- Itens selecionados para o pedido -->
