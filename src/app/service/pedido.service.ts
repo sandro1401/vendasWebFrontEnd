@@ -28,20 +28,26 @@ export class PedidoService {
   
   constructor(private http: HttpClient) { }
 
-  salvarPedido(pedido: Pedido, itensPedido: ItemPedido[]) {
-    const pedidoCompleto = { ...pedido, itens: itensPedido };
-    return this.http.post(BASE_API, pedidoCompleto);
+//   salvarPedido(pedido: Pedido, itensPedido: ItemPedido[]) {
+//     const pedidoCompleto = { ...pedido, itens: itensPedido };
+//     return this.http.put(BASE_API, pedidoCompleto);
   
-}
+// }
   /**
    * Adiciona um produto ao pedido localmente e envia a requisição para o backend.
    * @param produto Produto a ser adicionado
    * @returns Observable com o produto adicionado pelo backend
    */
 
-  criarPedidoVazio(): Observable<any> {
-    return this.http.post(BASE_API, {});
+  atualizarPedido(id: number, pedidoAtualizado: Pedido): Observable<Pedido> {
+    return this.http.put<Pedido>(`${BASE_API}/${id}`, pedidoAtualizado, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
+
+
   
   criarPedido(pedido: any): Observable<Pedido> {
     return this.http.post(`${BASE_API}`, pedido).pipe(
@@ -64,7 +70,7 @@ export class PedidoService {
   }
 
   adicionarItensAoPedido(pedidoId: number, itens: ItemPedido[]): Observable<any> {
-    return this.http.post(`${BASE_API_itens}/${pedidoId}`, { itens });
+    return this.http.post(`${BASE_API}/${pedidoId}`, { itens });
   }
 
 
@@ -74,7 +80,7 @@ export class PedidoService {
       quantidade,
       pedidoId,
       concluido,
-      preco_unitario: produto.preco, // Supondo que `preco` é uma propriedade de `Produto`
+      preco_unitario: produto.preco, 
     };
 
     return this.http.post<ItemPedido>(`${BASE_API_itens}/${pedidoId}`, body);

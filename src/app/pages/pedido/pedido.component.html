@@ -22,11 +22,19 @@
           <tr *ngFor="let item of pedidoAtual.itens">
             <td>{{ item.id }}</td>
             <td>{{ item.produto?.nome || 'Produto não encontrado' }}</td>
-            <td>{{ item.quantidade }}</td>
+            <td>
+              <input 
+                type="number" 
+                [(ngModel)]="item.quantidade" 
+                (ngModelChange)="atualizarValorTotal()"
+                min="1" 
+                class="form-control" />
+            </td>
             <td>R$ {{ item.preco_unitario | number: '1.2-2' }}</td>
             <td>R$ {{ (item.quantidade || 0) * (item.preco_unitario || 0) | number: '1.2-2' }}</td>
           </tr>
         </tbody>
+        <button type="button" class="btn btn-success" (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
       </table>
     </div>
   
@@ -34,6 +42,12 @@
       <p>Não há itens neste pedido.</p>
     </ng-template>
   </div>
-  <button (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
+  <div  class="atualizarPedido">
+    
+    <button type="button" class="btn btn-info" (click)="atualizarPedido()">Atualizar Pedido</button>
+
+  </div>
+
 </div>
+
 </div>

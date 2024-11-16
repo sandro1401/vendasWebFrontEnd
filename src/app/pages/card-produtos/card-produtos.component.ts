@@ -107,7 +107,11 @@ export class CardProdutosComponent implements OnInit {
   }
   
    
-  
+  obterUsuarioLogado() {
+    const usuarioId = sessionStorage.getItem('usuario.id');
+    //console.log(usuarioId)
+  return  Number(usuarioId);
+  }
   
   private adicionarItemAoPedido(produto: Produto, quantidade: number) {
       if (this.pedidoAtual?.id) {
@@ -133,11 +137,7 @@ export class CardProdutosComponent implements OnInit {
       return 1; // Exemplo: substitua pelo ID do novo pedido criado
     }
   
-    obterUsuarioLogado() {
-      const usuarioId = sessionStorage.getItem('usuario.id');
-      //console.log(usuarioId)
-    return  Number(usuarioId);
-    }
+  
 
       finalizarPedido() {
       this.router.navigate(['/pedidos']);

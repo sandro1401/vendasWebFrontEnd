@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-pedido',
   templateUrl: './pedido.component.html',
+ 
 })
 export class PedidoComponent implements OnInit {
   // pedido: Pedido = new Pedido();
@@ -104,24 +105,49 @@ carregarPedido() {
       return total + (preco * quantidade);
     }, 0);
   }
+
   
-  irParaItemPedido() {
-    const pedidoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    if (pedidoId) {
-      this.carregarPedido()
-      this.router.navigate(['/item-Pedido/pedido/', pedidoId]);
+  irParaItemPedido(): void {
+    if (this.pedidoAtual && this.pedidoAtual.id) {
+      console.log(this.pedidoAtual.id)
+      this.router.navigate(['/item-Pedido/pedido/', this.pedidoAtual.id]);
     } else {
-      console.error('ID do pedido está indefinido. Não é possível navegar para a página de itens do pedido.');
+      console.error('Pedido atual ou ID do pedido não está definido.');
     }
   }
 
+  // irParaItemPedido() {
+  //   const pedidoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+  //   if (pedidoId) {
+  //     this.carregarPedido()
+  //     this.router.navigate(['/item-Pedido/pedido/', pedidoId]);
+  //   } else {
+  //     console.error('ID do pedido está indefinido. Não é possível navegar para a página de itens do pedido.');
+  //   }
+  // }
+  // irParaItemPedido(): void {
+  //   if (this.pedidoAtual && this.pedidoAtual.id) {
+  //     // Navega para a página de ItemPedido com o pedidoId no estado de navegação
+  //     this.router.navigate(['/item-Pedido/pedido/', this.pedidoAtual.id], { state: { pedidoId: this.pedidoAtual.id }});
+  //   } else {
+  //     console.error('Pedido atual ou ID do pedido não está definido.');
+  //   }
+  // }
+
  
-  finalizarPedido() {
-    this.pedido.quantidade = this.itensPedido.length;
-  
-    this.pedidoService.salvarPedido(this.pedido, this.itensPedido).subscribe(response => {
-      console.log("Pedido salvo com sucesso!", response);
-    });
+  atualizarPedido() {
+    if (this.pedidoAtual && this.pedidoAtual.id) {
+      console.log(this.pedidoAtual)
+      this.pedidoService.atualizarPedido(this.pedidoAtual.id, this.pedidoAtual).subscribe(
+        response => {
+          console.log('Pedido atualizado com sucesso!', response);
+          this.router.navigate(['/produtos']);  
+        },
+        error => {
+          console.error('Erro ao atualizar o pedido!', error);
+        }
+      );
+    }
   }
 
 
