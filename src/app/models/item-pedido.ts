@@ -1,3 +1,5 @@
+import { Produto } from "./produto";
+
 export class ItemPedido {
     id?: number ;
     quantidade?: number;  
@@ -5,5 +7,6 @@ export class ItemPedido {
     pedidoId?: number;
     produtoId?: number;
     concluido?: boolean;
+    produto?: Produto
 
 }

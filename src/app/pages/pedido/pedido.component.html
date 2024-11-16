@@ -1,93 +1,39 @@
-<div *ngIf="pedidoAtual">
+<div *ngIf="pedidoAtual" class="pedido-detalhes">
   <h2>Detalhes do Pedido #{{ pedidoAtual.id }}</h2>
-
- 
-  <div>
-    
     <p><strong>Data do Pedido:</strong> {{ pedidoAtual.data_Pedido! | data}}</p>
     <p><strong>Quantidade de Produtos:</strong> {{ pedidoAtual.quantidade}}</p>
     <p><strong>Valor Total:</strong> {{ pedidoAtual.valorTotal | moeda }}</p>
-  </div>
 
-  <h3>Itens do Pedido:</h3>
-  <div *ngIf="pedidoAtual.itens && pedidoAtual.itens.length > 0">
-    <ul>
-      <li *ngFor="let item of pedidoAtual.itens">
-        <!-- <p><strong>Produto:</strong> {{ item.produto?.nome }}</p> -->
-        <p><strong>Quantidade:</strong> {{ item.quantidade }}</p>
-        <p><strong>Preço Unitário:</strong> {{ item.preco_unitario | currency }}</p>
-        <!-- <p><strong>Subtotal:</strong> {{ item.quantidade * item.preco_unitario | currency }}</p> -->
-      </li>
-    </ul>
-  </div>
-  <div *ngIf="pedidoAtual.itens?.length === 0">
-    <p>Nenhum item foi adicionado a este pedido ainda.</p>
-  </div>
-
-
-<button (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
-
-
-<!-- 
-<div class="pedido">
-  <h2>Resumo do Pedido</h2>
-  <div>
-<h2>Pedido #{{ pedidoAtual!.id }}</h2>
-<p>Data: {{ pedidoAtual!.data_Pedido | date }}</p>
-<p>Valor Total: {{ pedidoAtual!.valorTotal | currency }}</p>
-
-
-<div *ngIf="pedidoAtual?.itens?.length">
-    <h3>Itens do Pedido</h3>
-    <ul>
-        <li *ngFor="let item of pedidoAtual.itens">
-            Produto ID: {{ item.produtoId }}, Quantidade: {{ item.quantidade }},
-            Preço Unitário: {{ item.preco_unitario }}
-        </li>
-    </ul>
-</div> -->
-
-
-
-
-
-<!-- <h2>Pedido</h2>
-<p>Total: {{ pedido.valorTotal | currency }}</p>
-
-<ul>
-  <li *ngFor="let item of itensPedido">
-    Produto ID: {{ item.produtoId }} |
-    Quantidade: 
-    <input [(ngModel)]="item.quantidade" (change)="atualizarValorTotal()" type="number" min="1">
-    | Preço Unitário: {{ item.preco_unitario ?? 0 | currency }}
-    | Subtotal: {{ (item.quantidade ?? 0) * (item.preco_unitario ?? 0) | currency }}
-  </li>
-</ul>
-<h2>Adicionar Produtos ao Pedido</h2>
-
-<button (click)="irParaItemPedido()">Adicionar mais produtos</button>
-<button (click)="finalizarPedido()">Finalizar Pedido</button>
- -->
-
-<!-- <div class="pedido">
-    <h2>Resumo do Pedido</h2>
-    <div>
-      <h1>Pedido</h1>
-      
-    <div class="acoes-pedido">
-      <a routerLink="/item-pedido" class="btn-adicionar">Adicionar Produtos</a>
+<div class="container">
+  <div class="mb-3">
+    <h3>Itens do Pedido:</h3>
+    <div *ngIf="pedidoAtual.itens && pedidoAtual.itens.length > 0; else semItens">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço Unitário</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pedidoAtual.itens">
+            <td>{{ item.id }}</td>
+            <td>{{ item.produto?.nome || 'Produto não encontrado' }}</td>
+            <td>{{ item.quantidade }}</td>
+            <td>R$ {{ item.preco_unitario | number: '1.2-2' }}</td>
+            <td>R$ {{ (item.quantidade || 0) * (item.preco_unitario || 0) | number: '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-      <ul>
-         <li *ngFor="let item of itensSelecionados"> -->
-          <!-- {{ item.quantidade }} x {{ item.produtoId }} (R$ {{ item.valorTotal }}) -->
-        <!-- </li> --> 
-      <!-- </ul> -->
-      <!-- <button (click)="criarPedido()">Criar Pedido</button> -->
-    <!-- </div> -->
-    <!-- Mensagem quando não há itens -->
-    <!-- <ng-template #semItens>
-      <p>O pedido está vazio.</p>
-    </ng-template> -->
-    <!-- Total do pedido -->
-  <!-- </div> --> 
   
+    <ng-template #semItens>
+      <p>Não há itens neste pedido.</p>
+    </ng-template>
+  </div>
+  <button (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
+</div>
+</div>
