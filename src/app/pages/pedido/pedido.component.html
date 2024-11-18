@@ -19,16 +19,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of pedidoAtual.itens">
+          <tr *ngFor="let item of pedidoAtual?.itens">
             <td>{{ item.id }}</td>
             <td>{{ item.produto?.nome || 'Produto não encontrado' }}</td>
             <td>
-              <input 
-                type="number" 
-                [(ngModel)]="item.quantidade" 
-                (ngModelChange)="atualizarValorTotal()"
-                min="1" 
-                class="form-control" />
+              <input type="number" [(ngModel)]="item.quantidade" 
+                  min="1" 
+                  max="100" 
+                  (ngModelChange)="onQuantidadeChange(item)"
+                  (input)="validarQuantidade(item)" 
+                  required 
+                />
+                <div *ngIf="erroQuantidade" class="erro">
+                  {{ erroQuantidade }}
+                </div>
+
             </td>
             <td>R$ {{ item.preco_unitario | number: '1.2-2' }}</td>
             <td>R$ {{ (item.quantidade || 0) * (item.preco_unitario || 0) | number: '1.2-2' }}</td>
@@ -47,7 +52,9 @@
     <button type="button" class="btn btn-info" (click)="atualizarPedido()">Atualizar Pedido</button>
 
   </div>
-
+  
+ 
+  
 </div>
 
 </div>

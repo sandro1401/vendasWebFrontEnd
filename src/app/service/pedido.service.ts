@@ -25,6 +25,17 @@ export class PedidoService {
   
   private _pedidoId = new BehaviorSubject<number | null>(null);
   pedidoId$ = this._pedidoId.asObservable();
+  private pedidoSource = new BehaviorSubject<any>(null);
+  pedidoAtual$ = this.pedidoSource.asObservable();
+
+  setPedidoAtual(pedido: any): void {
+    this.pedidoSource.next(pedido);
+  }
+
+  getPedidoAtual(): any {
+    return this.pedidoSource.getValue();
+  }
+
   
   constructor(private http: HttpClient) { }
 
@@ -40,6 +51,7 @@ export class PedidoService {
    */
 
   atualizarPedido(id: number, pedidoAtualizado: Pedido): Observable<Pedido> {
+    console.log('Enviando pedido atualizado ao backend:', pedidoAtualizado); 
     return this.http.put<Pedido>(`${BASE_API}/${id}`, pedidoAtualizado, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -47,7 +59,7 @@ export class PedidoService {
     });
   }
 
-
+ 
   
   criarPedido(pedido: any): Observable<Pedido> {
     return this.http.post(`${BASE_API}`, pedido).pipe(
@@ -56,6 +68,7 @@ export class PedidoService {
       })
     );
   }
+
   getPedidoById(id: number): Observable<Pedido>{
     return this.http.get(`${BASE_API}/${id}`).pipe(
       map((pedido: any) => ({
@@ -70,9 +83,11 @@ export class PedidoService {
   }
 
   adicionarItensAoPedido(pedidoId: number, itens: ItemPedido[]): Observable<any> {
-    return this.http.post(`${BASE_API}/${pedidoId}`, { itens });
+    return this.http.put(`${BASE_API}/${pedidoId}`, { itens });
   }
-
+  atualizarItemPedido(itemPedidoId: number, item: ItemPedido): Observable<any> {
+    return this.http.put(`${BASE_API_itens}/${itemPedidoId}`, item);
+  }
 
   adicionarProdutoPedido(produto: Produto, quantidade: number, pedidoId: number, concluido: boolean = false): Observable<ItemPedido> {
     const body: ItemPedido = {
@@ -109,6 +124,15 @@ export class PedidoService {
       })
     );
   }
+  removerItem(pedidoId: number, produtoId: number): Observable<void> {
+    return this.http.delete<void>(`${BASE_API}/${pedidoId}/itens/${produtoId}`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+  
+  
 
   /**
    * Obtem todos os itens do pedido do backend e atualiza a lista local.
@@ -133,7 +157,9 @@ export class PedidoService {
     return this.obterItensPedido();
   }
 
-
+  private calcularValorTotal(itens: ItemPedido[]): number {
+    return itens.reduce((total, item) => total + item.quantidade! * item.preco_unitario!, 0);
+  }
 
   adicionarItemPedido(itemPedido: any) {
     return this.http.post(`${BASE_API}`, itemPedido);

@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'cadastroProdutos', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
   {path: 'editProduto/:id', component: CadastroProdutosComponent, canActivate: [AuthGuard]},
   {path: 'pedidos/:id', component: PedidoComponent},
-  { path: 'item-Pedido/pedido/:PedidoId', component: ItemPedidoComponent, canActivate: [AuthGuard] },
+  { path: 'item-Pedido/pedido/:id', component: ItemPedidoComponent, canActivate: [AuthGuard] },
 
  { path: '', redirectTo: '/produtos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },

@@ -1,5 +1,5 @@
 <div class="container-item-pedido">
-  {{pedidoId | json}}
+ {{itensPedido |json}}
   <h2>Adicionar Produtos ao Pedido #{{ pedidoId }}</h2>
   <ul *ngIf="produtosDisponiveis.length > 0; else semItens">
     <li *ngFor="let produto of produtosDisponiveis">
@@ -16,24 +16,41 @@
 
   <div class="itens-selecionados" *ngIf="itensSelecionados.length > 0">
     <h3>Itens Selecionados</h3>
-    <table>
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>Produto</th>
           <th>Quantidade</th>
           <th>Subtotal</th>
+         
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of itensSelecionados">
           <td>{{ obterNomeProduto(item.produtoId ?? 0) }}</td>
-          <td>{{ item.quantidade }}</td>
+          <td>
+            <input 
+              type="number" 
+              [(ngModel)]="item.quantidade" 
+              (ngModelChange)="calcularValorTotal()"
+              min="1" 
+              class="form-control" />
+          </td>
           <td>R$ {{ calcularSubtotal(item) | number: '1.2-2' }}</td>
         </tr>
       </tbody>
+      <tr *ngFor="let item of itensSelecionados">
+      <div class="container">
+        <button class="btn btn-primary" (click)="definirConclusao(item, true)"> Concluir Pedido</button>
+      </div>
+    </tr>
+
     </table>
-    <button (click)="finalizarAdicaoDeProdutos()">Finalizar Adição</button>
-  </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button [disabled]="itensSelecionados.length === 0" class="btn btn-primary"  (click)="finalizarAdicaoDeProdutos()">Fechar Pedido</button>
+    </div>
 </div>
 
  

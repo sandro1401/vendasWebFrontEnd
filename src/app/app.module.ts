@@ -25,6 +25,7 @@ import { PesquisaProdutoPipe } from './pesquisa-produto.pipe';
 import { ImagensProdutosComponent } from './imagens-produtos/imagens-produtos.component';
 import { DataPipe } from './data.pipe';
 import { MoedaPipe } from './moeda.pipe';
+import { ErroComponent } from './erro/erro.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MoedaPipe } from './moeda.pipe';
     ImagensProdutosComponent,
     DataPipe,
     MoedaPipe,
+    ErroComponent,
    
 
   ],
