@@ -124,8 +124,8 @@ export class PedidoService {
       })
     );
   }
-  removerItem(pedidoId: number, produtoId: number): Observable<void> {
-    return this.http.delete<void>(`${BASE_API}/${pedidoId}/itens/${produtoId}`, {
+  removerItem(id: number): Observable<void> {
+    return this.http.delete<void>(`${BASE_API_itens}/${id}/`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -152,18 +152,9 @@ export class PedidoService {
     );
   }
 
-  // Método adicional para sincronizar a lista local com o backend (opcional)
-  sincronizarItensPedido(): Observable<Produto[]> {
-    return this.obterItensPedido();
-  }
 
-  private calcularValorTotal(itens: ItemPedido[]): number {
-    return itens.reduce((total, item) => total + item.quantidade! * item.preco_unitario!, 0);
-  }
 
-  adicionarItemPedido(itemPedido: any) {
-    return this.http.post(`${BASE_API}`, itemPedido);
-  }
+
 
   
 }
