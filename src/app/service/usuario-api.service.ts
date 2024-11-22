@@ -36,7 +36,7 @@ export class UsuarioApiService {
     return this.http.get<Usuario[]>(BASE_API);
   }
     buscarPorId(id: number): Observable<Usuario> {
-      const uri = `${BASE_API}/id/${id}`;
+      const uri = `${BASE_API}/${id}`;
       return this.http.get<Usuario>(uri);
     }
    

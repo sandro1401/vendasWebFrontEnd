@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {  ChangeDetectionStrategy,Component, Input, OnInit } from '@angular/core';
 import { PedidoService } from '../../service/pedido.service';
 import { Produto } from '../../models/produto';
 import { Pedido } from '../../models/pedido';
@@ -46,6 +46,7 @@ export class PedidoComponent implements OnInit {
     private pedidoDataService: PedidoDataService,
     private cdr: ChangeDetectorRef,
     private produtoService: ProdutoApiService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.pedido.produtoId = parseInt(params['produtoId'])
@@ -210,7 +211,7 @@ export class PedidoComponent implements OnInit {
       }
 
     );
-
+    this.changeDetectorRef.detectChanges();
   }
 
   erroQuantidade: string = '';

@@ -9,7 +9,7 @@ import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usua
 import { ListUsuariosComponent } from './pages/list-usuarios/list-usuarios.component';
 import { FiltroPesquisaPipe } from './filtro-pesquisa.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { CadastroCategoriaComponent } from './pages/cadastro-categoria/cadastro-categoria.component';
 import { ListCardProdutosComponent } from './pages/list-card-produtos/list-card-produtos.component';
 import { CadastroProdutosComponent } from './pages/cadastro-produtos/cadastro-produtos.component';
 import { CardProdutosComponent } from './pages/card-produtos/card-produtos.component';
@@ -26,6 +26,8 @@ import { ImagensProdutosComponent } from './imagens-produtos/imagens-produtos.co
 import { DataPipe } from './data.pipe';
 import { MoedaPipe } from './moeda.pipe';
 import { ErroComponent } from './erro/erro.component';
+import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.component';
+import { PesquisaCategoriaPipe } from './pesquisa-categoria.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,9 @@ import { ErroComponent } from './erro/erro.component';
     DataPipe,
     MoedaPipe,
     ErroComponent,
+    CadastroCategoriaComponent,
+    ListCategoriaComponent,
+    PesquisaCategoriaPipe,
    
 
   ],

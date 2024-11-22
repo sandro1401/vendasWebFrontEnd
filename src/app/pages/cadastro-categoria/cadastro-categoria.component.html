@@ -1,0 +1,15 @@
+<div class="container">
+    <h3>Formulário cadastro de Categorias</h3>
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input [(ngModel)]="categoria.nome" class="form-control"
+        id="nome" placeholder="nome da categoria">
+      
+    </div>
+    <button type="button" class="btn btn-primary me-3"  (click)="salvar()" >
+        {{botaoAcao}}
+    </button>
+    <button class="btn btn-primary" (click)="voltar()">
+        VOLTAR
+    </button>
+</div>

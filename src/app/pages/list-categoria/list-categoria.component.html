@@ -1,0 +1,32 @@
+<div class="container">
+    <h3>Lista de Categorias</h3>
+
+    <div class="mb-3">
+        <label for="nome" class="form-label">Pesquisa:</label>
+        <input [(ngModel)]="categoriaPesquisada" class="form-control"
+            id="nome" placeholder="nome da Categoria ...">
+    </div>
+
+    <h4 *ngIf="(listaCategoria | pesquisaCategoria:categoriaPesquisada).length == 0">
+        Não há Categorias cadastrados!
+    </h4>
+    <table class="table table-striped" *ngIf="(listaCategoria| pesquisaCategoria:categoriaPesquisada ).length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>AÇÃO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor=" let categorias of listaCategoria | pesquisaCategoria:categoriaPesquisada">
+                <td>{{categorias.id}}</td>
+                <td>{{categorias.nome}}</td>     
+
+                <td><a class='btn btn-primary' routerLink="/editCategoria/{{categorias.id}}}">Editar</a></td>
+                <td><a class='btn btn-primary' routerLink="/ListaCategoria" (click)="deletar(categorias.id)" >Deletar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -81,7 +81,7 @@ export class CardProdutosComponent implements OnInit {
   
           if (!this.pedidoAtual.usuarioId || !this.pedidoAtual.produtoId || !this.pedidoAtual.quantidade || !this.pedidoAtual.valorTotal) {
               console.error('Erro: Informações incompletas para criar o pedido');
-              alert('Necessário Realizar Login Primeiro')
+              alert('Necessário Realizar Login!!!')
               return;
           }
   
