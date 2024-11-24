@@ -16,6 +16,7 @@ import { environment } from '../../../environments/environment.development';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardProdutosComponent implements OnInit {
+
   @Input() produto: any = '';
   pedidoAtual!: Pedido;
   produtos: Produto[] = [];
@@ -29,8 +30,12 @@ export class CardProdutosComponent implements OnInit {
   
   constructor(  private produtoService: ProdutoApiService,
     private pedidoService: PedidoService,private router: Router,
-     private changeDetectorRef: ChangeDetectorRef, private usuarioApiService: UsuarioApiService){
+    
+     private changeDetectorRef: ChangeDetectorRef, private usuarioApiService: UsuarioApiService)
+     {
       this.idUsuario = this.usuarioApiService.getUsuarioId();
+ 
+
      }
   
     ngOnInit(){

@@ -55,6 +55,7 @@ salvar() {
 
      // Inserção ou edição com imagem
     if (this.id) {
+      formData.forEach((value, key) => console.log(key, value));
       this.produtoApiService.editarComImagem(this.id, formData).subscribe(
         (produto) => {
           alert(`Produto ${this.produto.nome} editado com sucesso!`);
@@ -64,7 +65,6 @@ salvar() {
     } else {
       formData.forEach((value, key) => console.log(key, value)); 
       this.produtoApiService.inserirComImagem(formData).subscribe(
-        
         (produto) => {
           alert(`Produto cadastrado com sucesso ID: ${produto.id}!`);
           this.produto = new Produto();

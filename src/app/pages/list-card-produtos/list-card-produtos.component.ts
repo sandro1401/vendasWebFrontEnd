@@ -8,9 +8,11 @@ import { ProdutoApiService } from '../../service/produto-api.service';
 })
 export class ListCardProdutosComponent {
   listaProdutos: Produto[] = []; 
-  
+  pesquisarProduto = ' ';
 
-  constructor(private produtoApiService: ProdutoApiService) {
+  constructor(private produtoApiService: ProdutoApiService,
+    
+  ) {
     this.listar();
   }
   listar(){

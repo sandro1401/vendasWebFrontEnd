@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Produto } from '../models/produto';
 
 const BASE_API = 'http://localhost:3000/api/produto';
+const BASE_API_Pedido = 'http://localhost:3000/api/pedido';
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"
@@ -39,7 +40,7 @@ export class ProdutoApiService {
     }
     editarImagemProduto(id: any, formData: FormData): Observable<any> {
       const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });
-      return this.http.put(`${BASE_API}/imagens-prod/${id}`, formData, { headers: headers })
+      return this.http.put(`${BASE_API}/${id}`, formData, { headers: headers })
     }
   
     deletar(id: number): Observable<Produto> {
@@ -54,8 +55,9 @@ export class ProdutoApiService {
       return this.http.post(BASE_API, produtoData, { headers: headers });
     }
     
-    editarComImagem(id: number, produtoData: FormData) {
-      return this.http.put(`${BASE_API}/${id}`, produtoData, httpOptions);
+    editarComImagem(id: number, produtoData: FormData):Observable<any> {
+      const headers = new HttpHeaders();  
+      return this.http.put(`${BASE_API}/${id}`, produtoData, { headers: headers });
     }
     getUsuarioId(): any {
       const usuarioId = sessionStorage.getItem('usuario.id');
