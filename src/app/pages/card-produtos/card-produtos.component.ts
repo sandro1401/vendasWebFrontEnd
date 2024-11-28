@@ -8,6 +8,7 @@ import { UsuarioApiService } from '../../service/usuario-api.service';
 import { ItemPedido } from '../../models/item-pedido';
 import { Pedido } from '../../models/pedido';
 import { environment } from '../../../environments/environment.development';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-card-produtos',
@@ -26,7 +27,7 @@ export class CardProdutosComponent implements OnInit {
  
   indiceImagAtual: number = 0;
   idUsuario = ';'
-  
+  produtoSelecionado!: Produto;
   
   constructor(  private produtoService: ProdutoApiService,
     private pedidoService: PedidoService,private router: Router,
@@ -44,7 +45,13 @@ export class CardProdutosComponent implements OnInit {
 
   
     }
-
+    abrirModal(produto: any) {
+      this.produtoSelecionado = produto;
+      const modal = new bootstrap.Modal(
+        document.getElementById('descricaoModal') as HTMLElement
+      );
+      modal.show();
+    }
     carregarProdutos() {
       const baseUrl = environment.baseUrl;
       this.produtoService.obterProdutos().subscribe((produtos) => {
@@ -52,14 +59,14 @@ export class CardProdutosComponent implements OnInit {
           if (produto.imagem_url) {
             if (Array.isArray(produto.imagem_url)) {
               const imagensCorrigidas = produto.imagem_url.map((imgPath) => {
-                return `${baseUrl}${imgPath.replace(/[{}"]/g, '')
+                return `${imgPath.replace(/[{}"]/g, '')
                   .replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
               });
               if (produto.id) {
                 this.imagensTratadas[produto.id] = imagensCorrigidas;
               }
             } else if (typeof produto.imagem_url === 'string') {
-              const imagemCorrigida = `${baseUrl}${produto.imagem_url.replace(/[{}"]/g, '')
+              const imagemCorrigida = `${produto.imagem_url.replace(/[{}"]/g, '')
                 .replace(/\\/g, '/').replace('uploads/', 'uploads/')}`;
               if (produto.id) {
                 this.imagensTratadas[produto.id] = [imagemCorrigida];
@@ -73,6 +80,8 @@ export class CardProdutosComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       });
     }
+
+    
     adicionarProdutoAoPedido(produto: Produto) {
       const quantidade = 1;
   

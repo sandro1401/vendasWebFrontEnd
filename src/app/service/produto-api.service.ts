@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Produto } from '../models/produto';
 
-const BASE_API = 'http://localhost:3000/api/produto';
-const BASE_API_Pedido = 'http://localhost:3000/api/pedido';
+// const BASE_API = 'http://localhost:3000/api/produto';
+const BASE_API = 'https://vendaswebbackend.onrender.com/api/produto'
+const BASE_API_Pedido = 'https://vendaswebbackend.onrender.com/api/pedido';
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"

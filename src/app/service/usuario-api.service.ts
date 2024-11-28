@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
-const BASE_API = 'http://localhost:3000/api/usuario';
+// const BASE_API = 'http://localhost:3000/api/usuario';
+const BASE_API = 'https://vendaswebbackend.onrender.com/api/usuario'
 const httpOptions = {
   headers: new HttpHeaders({
     "Content-Type": "application/json"

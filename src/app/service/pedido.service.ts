@@ -7,8 +7,9 @@ import { throwError } from 'rxjs';
 import { ItemPedido } from '../models/item-pedido';
 import { Usuario } from '../models/usuario';
 
-const BASE_API = 'http://localhost:3000/api/pedido';
-const BASE_API_itens = 'http://localhost:3000/api/ItemPedido';
+// const BASE_API = 'http://localhost:3000/api/pedido';
+const BASE_API = 'https://vendaswebbackend.onrender.com/api/pedido'
+const BASE_API_itens = 'https://vendaswebbackend.onrender.com/api/itemPedido';
 
 const httpOptions = {
   headers: new HttpHeaders({
