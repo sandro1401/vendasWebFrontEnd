@@ -3,6 +3,8 @@ import { Usuario } from '../../models/usuario';
 import { AuthService } from '../../service/auth/auth.service';
 import { Router } from '@angular/router';
 import { UsuarioApiService } from '../../service/usuario-api.service';
+import { OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Auth, signOut,  signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +12,10 @@ import { UsuarioApiService } from '../../service/usuario-api.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  isAuth = false;
   erro = false;
   usuario = new Usuario();
+
   hidePassword = true;
  nome: string = '';
   email: string = '';
@@ -22,48 +26,39 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private usuarioApiService: UsuarioApiService,
-   ){}
+    private auth: Auth
+   ){
+    if(localStorage.getItem("token"))  
+      this.isAuth = true;
+   }
 
-   listarUsuarios() {
-    this.usuarioApiService.listar().subscribe(
-      usuarios => {
-        console.log("USUARIOS: ", usuarios)
-      }
-    )
-  }
+
 
   login(email: string, senha: string) {
     this.usuarioApiService.login(email, senha).subscribe(
       usuario => {
         if(usuario && senha) {
           if(usuario.senha === senha) {
-            this.realizarLogin(usuario.nome)
-            sessionStorage.setItem('usuario.nome', usuario.nome);
-            sessionStorage.setItem('usuario.id', usuario.id);
-         
-            
-            this.router.navigate(['/produtos'])
-              .then( () => {
-                window.location.reload()
-              });
-          } else {
-            this.errorMessage = 'Email ou senha incorreto!';
+            this.usuario = usuario;
+            this.realizarLogin()
+           
           }
-        } else {
-          this.errorMessage = 'Faltou digitar a senha!';
+
         }
-      },
-      error => {
-        this.errorMessage = 'Email ou senha incorreto!';
       }
     )
   }
+
+  
 
   // Método para limpar a mensagem de erro
   clearErrorMessage() {
     this.errorMessage = '';
   }
-  realizarLogin(nome: string) {
+
+ 
+  realizarLogin() {
+    console.log(this.usuario)
     this.authService.login(this.usuario).subscribe(
       logado => {
         if(logado) {

@@ -12,22 +12,25 @@ import { ListaProdutosComponent } from './pages/lista-produtos/lista-produtos.co
 import { AuthGuard } from './service/auth/auth.guard';
 import { CadastroCategoriaComponent } from './pages/cadastro-categoria/cadastro-categoria.component';
 import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.component';
+import { canActivate, loggedIn, redirectUnauthorizedTo} from '@angular/fire/auth-guard'
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'novoUsuario', component: CadastroUsuarioComponent},
-  {path: 'lista', component: ListUsuariosComponent},
+  {path: 'lista', component: ListUsuariosComponent,...canActivate(redirectUnauthorizedToLogin)},
   {path: 'edit/:id', component: CadastroUsuarioComponent},
   {path: 'produtos', component: ListCardProdutosComponent},
  {path: 'listaProdutos', component: ListaProdutosComponent},
   {path: 'CardProdutos', component: CardProdutosComponent},
-  {path: 'cadastroProdutos', component: CadastroProdutosComponent},
-  {path: 'editProduto/:id', component: CadastroProdutosComponent},
+  {path: 'cadastroProdutos', component: CadastroProdutosComponent,...canActivate(redirectUnauthorizedToLogin)},
+  {path: 'editProduto/:id', component: CadastroProdutosComponent, ...canActivate(redirectUnauthorizedToLogin)},
   {path: 'pedidos/:id', component: PedidoComponent},
   { path: 'item-Pedido/pedido/:id', component: ItemPedidoComponent},
-  {path: 'cadastroCategorias', component: CadastroCategoriaComponent },
-  {path: 'editCategoria/:id', component: CadastroCategoriaComponent},
-  {path: 'ListaCategoria', component: ListCategoriaComponent},
-
+  {path: 'cadastroCategorias', component: CadastroCategoriaComponent, ...canActivate(redirectUnauthorizedToLogin)},
+  {path: 'editCategoria/:id', component: CadastroCategoriaComponent, ...canActivate(redirectUnauthorizedToLogin)},
+  {path: 'ListaCategoria', component: ListCategoriaComponent, ...canActivate(redirectUnauthorizedToLogin)},
+  
 
  { path: '', redirectTo: '/produtos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },

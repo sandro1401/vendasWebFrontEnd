@@ -28,7 +28,10 @@ import { MoedaPipe } from './moeda.pipe';
 import { ErroComponent } from './erro/erro.component';
 import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.component';
 import { PesquisaCategoriaPipe } from './pesquisa-categoria.pipe';
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +54,7 @@ import { PesquisaCategoriaPipe } from './pesquisa-categoria.pipe';
     CadastroCategoriaComponent,
     ListCategoriaComponent,
     PesquisaCategoriaPipe,
+
    
 
   ],
@@ -62,8 +66,15 @@ import { PesquisaCategoriaPipe } from './pesquisa-categoria.pipe';
     MatIconModule,
     MatMenuModule,
     MatTooltip,
+
+ 
   ],
-  providers: [provideHttpClient(), provideAnimationsAsync()],
+  providers: [provideHttpClient(), provideAnimationsAsync(),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig
+      )),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
