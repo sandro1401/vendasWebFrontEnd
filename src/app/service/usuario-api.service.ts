@@ -18,7 +18,7 @@ const httpOptions = {
 export class UsuarioApiService {
 
   getUsuarioNome(): any {
-    const nomeUsuario = sessionStorage.getItem('usuario.nome');
+    const nomeUsuario = sessionStorage.getItem('usuario.nome') ;
     return nomeUsuario;
   }
   getUsuarioId(): any {

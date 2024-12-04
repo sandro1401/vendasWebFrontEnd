@@ -1,4 +1,4 @@
-import {  ChangeDetectionStrategy, ChangeDetectorRef,Component, Input, OnInit } from '@angular/core';
+import {  ChangeDetectionStrategy, ChangeDetectorRef,Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProdutoApiService } from '../../service/produto-api.service';
 import { PedidoService } from '../../service/pedido.service';
@@ -9,6 +9,7 @@ import { ItemPedido } from '../../models/item-pedido';
 import { Pedido } from '../../models/pedido';
 import { environment } from '../../../environments/environment.development';
 import * as bootstrap from 'bootstrap';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-card-produtos',
@@ -28,7 +29,8 @@ export class CardProdutosComponent implements OnInit {
   indiceImagAtual: number = 0;
   idUsuario = ';'
   produtoSelecionado!: Produto;
-  
+
+
   constructor(  private produtoService: ProdutoApiService,
     private pedidoService: PedidoService,private router: Router,
     
@@ -43,15 +45,23 @@ export class CardProdutosComponent implements OnInit {
       this.idUsuario
        this.carregarProdutos();
 
+
   
     }
-    abrirModal(produto: any) {
-      this.produtoSelecionado = produto;
-      const modal = new bootstrap.Modal(
-        document.getElementById('descricaoModal') as HTMLElement
-      );
-      modal.show();
-    }
+
+
+
+    @ViewChild('descricaoModal', { static: true }) modal!: ElementRef;
+
+abrirModal(produto: Produto) {
+  this.produtoSelecionado = produto;
+  this.changeDetectorRef.detectChanges();
+  const bootstrapModal = new bootstrap.Modal(this.modal.nativeElement);
+  bootstrapModal.show();
+}
+
+
+
     carregarProdutos() {
       const baseUrl = environment.baseUrl;
       this.produtoService.obterProdutos().subscribe((produtos) => {
