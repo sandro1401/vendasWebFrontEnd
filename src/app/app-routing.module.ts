@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: 'novoUsuario', component: CadastroUsuarioComponent},
   {path: 'lista', component: ListUsuariosComponent,canActivate: [AuthGuard]},
   {path: 'edit/:id', component: CadastroUsuarioComponent},
-  {path: 'produtos', component: ListCardProdutosComponent},
+  {path: 'produtos', component: ListCardProdutosComponent,canActivate: [AuthGuard]},
  {path: 'listaProdutos', component: ListaProdutosComponent,canActivate: [AuthGuard]},
   {path: 'CardProdutos', component: CardProdutosComponent},
   {path: 'cadastroProdutos', component: CadastroProdutosComponent,canActivate: [AuthGuard]},
