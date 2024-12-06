@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Produto } from '../../models/produto';
+import { Usuario } from '../../models/usuario';
+import { Categoria } from '../../models/categoria';
+import { UsuarioApiService } from '../../service/usuario-api.service'
 import { ProdutoApiService } from '../../service/produto-api.service';
 import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
+import { CategoriaService } from '../../service/categoria.service';
 @Component({
   selector: 'app-cadastro-produtos',
   templateUrl: './cadastro-produtos.component.html',
@@ -16,11 +19,18 @@ export class CadastroProdutosComponent implements OnInit{
   form: FormGroup = new FormGroup({});
   arquivoSelecionado: File | null = null;
   imagemSelecionada?: File;
+  categorias: Categoria[] = []; 
+  categoriaPesquisada: string = ''; 
+  usuarioLogado!: Usuario; 
+
   constructor(
     private produtoApiService: ProdutoApiService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private categoriaService: CategoriaService, 
+    private usuarioService: UsuarioApiService
+
     ) {
       this.id = +this.route.snapshot.params['id'];
       if(this.id) {
@@ -32,7 +42,26 @@ export class CadastroProdutosComponent implements OnInit{
       
   }
 
-ngOnInit(): void {}
+ngOnInit(): void {
+  this.carregarCategorias();
+  this.usuarioService.getUsuarioLogado()?.subscribe({
+    next: (usuario) => {
+      this.usuarioLogado = usuario;
+      this.produto.usuarioId = usuario.id; // Preencher automaticamente no produto
+    },
+    error: (err) => {
+      console.error("Erro ao buscar usuário logado:", err);
+    }  });
+}
+
+
+carregarCategorias(): void {
+  this.categoriaService.listar().subscribe(
+    (categorias) => this.categorias = categorias
+  );
+}
+
+
 selecionarArquivo(event: Event): void {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files[0]) {

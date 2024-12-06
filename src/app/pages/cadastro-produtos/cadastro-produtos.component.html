@@ -15,12 +15,16 @@
         <input type="number" [(ngModel)]="produto.preco" class="form-control"
             id="preco" placeholder="preço ...">
     </div>
-  
-    <div class="mb-3">
+     
+      <div class="mb-3">
         <label for="IdCategroria" class="form-label">CATEGORIA:</label>
-        <input  [(ngModel)]="produto.categoriaId" class="form-control"
-            id="IdCategroria" placeholder="categoria ...">
-    </div>
+        <select [(ngModel)]="produto.categoriaId" class="form-control" id="IdCategroria">
+          <option *ngFor="let categoria of categorias | pesquisaCategoria: categoriaPesquisada" [value]="categoria.id">
+            {{ categoria.nome }}
+          </option>
+        </select>
+      </div>
+
     <div class="mb-3">
         <label for="IdUsuario" class="form-label">USUARIO:</label>
         <input  [(ngModel)]="produto.usuarioId" class="form-control"

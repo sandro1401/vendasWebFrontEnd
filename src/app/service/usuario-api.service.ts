@@ -40,7 +40,17 @@ export class UsuarioApiService {
       const uri = `${BASE_API}/${id}`;
       return this.http.get<Usuario>(uri);
     }
-   
+    
+    getUsuarioLogado(): Observable<Usuario> | null {
+      const usuarioId = this.getUsuarioId();
+      if (usuarioId) {
+        return this.buscarPorId(+usuarioId);
+      }
+      return null; // Caso não exista usuário logado
+    }
+
+
+
     login(email: string, senha: string): Observable<any> {
       return this.http.get<any>(`${BASE_API}/email/${email}`)
       .pipe(

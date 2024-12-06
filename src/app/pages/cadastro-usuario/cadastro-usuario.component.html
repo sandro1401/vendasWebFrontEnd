@@ -12,26 +12,30 @@
         <div class="form-container">
             <div class="form-horizontal">
                 <h3>Cadastro de Usuários</h3>
+                <form [formGroup]="form">
+                    <div class="row p-0">
         <div class="form-group">
             <label for="nome" class="form-label">NOME:</label>
-            <input [(ngModel)]="usuario.nome" class="form-control"
+            <input [(ngModel)]="usuario.nome" formControlName="nome" class="form-control"
                 id="nome" placeholder="nome do usuario ...">
         </div>
         <div class="form-group">
             <label for="cpf" class="form-label">CPF:</label>
-            <input  [(ngModel)]="usuario.cpf" class="form-control"
+            <input  [(ngModel)]="usuario.cpf" formControlName="cpf" class="form-control"
                 id="cpf" placeholder="cpf ...">
         </div>
         <div class="form-group">
             <label for="email" class="form-label">EMAIL:</label>
-            <input [(ngModel)]="usuario.email" class="form-control"
+            <input [(ngModel)]="usuario.email" formControlName="email" class="form-contro"
                 id="email" autocomplete="off" placeholder="email ...">
         </div>
         <div class="form-group">
             <label for="senha" class="form-label">SENHA:</label>
-            <input [(ngModel)]="usuario.senha" class="form-control"
+            <input [(ngModel)]="usuario.senha" formControlName="senha" class="form-control"
                 id="senha" type="password" placeholder="senha ...">
         </div>
+    </div>
+                </form>
         <form [formGroup]="form">
             <div class="row p-0">
                 <div class="form-group">
@@ -66,38 +70,44 @@
                 </div>
             </div>
         </form>
+        <form [formGroup]="form">
+            <div class="row p-0">
         <div class="form-group">
             <label for="dt_nascimento" class="form-label">DATA DE NASCIMENTO:</label>
-            <input type="date" [(ngModel)]="usuario.dt_nascimento" class="form-control"
+            <input type="date" [(ngModel)]="usuario.dt_nascimento" formControlName="dt_nascimento" class="form-control"
                 id="dt_nascimento" placeholder="Data de Nascimento ...">
         </div>
         <div class="form-group">
             <label for="sexo" class="form-label">SEXO:</label>
-            <input [(ngModel)]="usuario.sexo" class="form-control"
+            <input [(ngModel)]="usuario.sexo" formControlName="sexo" class="form-control"
                 id="sexo"  placeholder="Sexo ...">
         </div>
         <div class="form-group">
             <label for="telefone" class="form-label">TELEFONE:</label>
-            <input [(ngModel)]="usuario.telefone" class="form-control"
+            <input [(ngModel)]="usuario.telefone" formControlName="telefone" class="form-control"
                 id="telefone"  placeholder="telefone ...">
         </div>
         <div class="form-group">
             <label for="tipo" class="form-label">TIPO:</label>
-            <input [(ngModel)]="usuario.tipo" class="form-control"
+            <input [(ngModel)]="usuario.tipo" formControlName="tipo" class="form-control"
                 id="tipo"  placeholder="Tipo ...">
         </div>
-        <div class="form-group" style="display: flex; margin: 10px; width: 100%;">
-            <button type="button" class="btn btn-primary me-3"  (click)="salvar()" >
-                {{botaoAcao}}
-            </button>
-            <button type="button" class="btn btn-primary me-3  " (click)="voltar()">
-                VOLTAR
-            </button>
-        </div>
        
+    </div>
+
+    </form>
+       
+    <div class="form-group" style="display: flex; margin: 10px; width: 100%;">
+        <button type="button" class="btn btn-primary me-3"  (click)="salvar()" >
+            {{botaoAcao}}
+        </button>
+        <button type="button" class="btn btn-primary me-3  " (click)="voltar()">
+            VOLTAR
+        </button>
+    </div>
     
-    
-            </div>
+        </div>
+      
         </div>
         
         
