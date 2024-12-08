@@ -42,13 +42,20 @@ export class PedidoDataService {
   }
   // Método para definir os itens selecionados
   setItensSelecionados(itens: ItemPedido[]): void {
-    this.adicionarProdutoAosItens(itens);
+    this.adicionarProdutoAosItens(itens) ;
   }
 
   getItensSelecionados(): ItemPedido[] {
-    return this.itensSelecionadosSource.getValue();
+    const itens = this.itensSelecionadosSource.getValue();
+    return itens || [];
   }
 
+  adicionarItensSelecionados(novosItens: ItemPedido[]) {
+    const itensAtuais = this.itensSelecionadosSource.getValue();
+    const itensAtualizados = [...itensAtuais, ...novosItens];  // Adiciona os novos itens
+    this.itensSelecionadosSource.next(itensAtualizados);  // Atualiza o BehaviorSubject
+  }
+  
   clearItensSelecionados() {
     this.itensSelecionadosSource.next([]);
   }

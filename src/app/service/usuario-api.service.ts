@@ -17,18 +17,24 @@ const httpOptions = {
 })
 export class UsuarioApiService {
 
-  getUsuarioNome(): any {
-    const nomeUsuario = sessionStorage.getItem('usuario.nome') ;
+
+  getUsuarioNome(): any{
+    const nomeUsuario = sessionStorage.getItem('usuario.nome');
     return nomeUsuario;
   }
-  getUsuarioId(): any {
-    const usuarioId = sessionStorage.getItem('usuario.id');
-    return usuarioId;
+
+  getUsuarioId(): string {
+    return sessionStorage.getItem('usuario.id') || '';
+  }
+  getUsuarioTipo(): any {
+    const usuarioTipo = sessionStorage.getItem('usuario.tipo');
+    return usuarioTipo;
   }
   
   logout() {
     sessionStorage.removeItem('usuario.nome');
     sessionStorage.removeItem('usuario.id');
+    sessionStorage.clear()
   }
 
   constructor(private http: HttpClient) {}

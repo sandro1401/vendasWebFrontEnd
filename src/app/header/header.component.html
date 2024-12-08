@@ -1,16 +1,18 @@
 <header>
-    <div *ngIf="nomeUsuario" class="menu-burger">
-      <nav  class="navbar bg-body-tertiary">
-        <div class="container-fluid" *ngIf="nomeUsuario">
-          <span class="navbar-brand mb-2 h1">Bem Vindo, {{ nomeUsuario }}</span>
-        </div>
-        <div  class="container-fluid">
-          <!-- Adicione um link para logout se necessário -->
-          <button class="btn btn-outline-success" type="submit">
-            <span  (click)="logout()">Sair</span>
-          </button>
-        </div>
-      </nav>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-2 h1">
+        <!-- Exibe o nome do usuário logado -->
+        <ng-container *ngIf="nomeUsuario; else naoLogado">
+          Bem-vindo, {{ nomeUsuario }}
+        </ng-container>
+        <ng-template #naoLogado>
+          <span>Usuário não logado</span>
+        </ng-template>
+      </span>
+      <div>
+        <button class="btn btn-outline-danger" (click)="logout()">Sair</button>
+      </div>
     </div>
-
-  </header>
+  </nav>
+</header>

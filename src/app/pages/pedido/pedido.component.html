@@ -1,7 +1,7 @@
 <div *ngIf="pedidoAtual" class="pedido-detalhes">
   <h2>Pedido {{ pedidoAtual.id }}</h2>
     <p><strong>Data do Pedido:</strong> {{ pedidoAtual.data_Pedido! | data}}</p>
-    <p><strong>Quantidade de Produtos:</strong> {{ pedidoAtual.quantidade}}</p>
+    <!-- <p><strong>Quantidade de Produtos:</strong> {{ pedidoAtual.quantidade}}</p> -->
     <p><strong>Valor Total:</strong> {{ pedidoAtual.valorTotal | moeda }}</p>
 
 <div class="container">
@@ -15,6 +15,7 @@
             <th>Quantidade</th>
             <th>Preço Unitário</th>
             <th>Subtotal</th>
+            <!-- <th>Ação</th> -->
           </tr>
         </thead>
         <tbody>
@@ -35,13 +36,17 @@
             </td>
             <td>R$ {{ item.preco_unitario | number: '1.2-2' }}</td>
             <td>R$ {{ (item.quantidade || 0) * (item.preco_unitario || 0) | number: '1.2-2' }}</td>
-            <!-- <div class="removerItem">
+            <!-- <td>
+              <div class="removerItem">
               <button type="button" class="btn btn-info" (click)="removerProduto(pedidoAtual.produtoId!)">Remover Produto</button>
-            </div> -->
+            </div>
+            </td> -->
+           
             
           </tr>
         </tbody>
-        <button type="button" class="btn btn-success" (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
+        <button type="button" class="btn btn-success" 
+        (click)="irParaItemPedido()">Adicionar Itens ao Pedido</button>
       
       </table>
     </div>

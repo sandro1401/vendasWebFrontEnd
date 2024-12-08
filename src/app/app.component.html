@@ -1,58 +1,40 @@
-
 <h1 class="text-center mt-3">Vendas Web A Loja do Hardware</h1>
-<app-header></app-header>
+<app-header *ngIf="logado"></app-header>
+
 <nav class="navbar navbar-expand-lg nav-dark bg-primary">
     <div class="container-fluid">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/login">
-                    Login
-                </a> 
+            <li class="nav-item" *ngIf="!authService.estaLogado()">
+                <a class="nav-link" routerLink="/login">Login</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/novoUsuario">
-                    Cadastrar Usuario
-                </a>
+
+            <li class="nav-item" *ngIf="authService.estaLogado()">
+                <a class="nav-link" routerLink="/produtos">Produtos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/lista">
-                    Lista de Usuários
-                </a> 
+           
+
+            <li class="nav-item" *ngIf="authService.ehAdmin()">
+                <a class="nav-link" routerLink="/novoUsuario">Cadastrar Usuário</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/produtos">
-                    Produtos
-                </a> 
+            <li class="nav-item" *ngIf="authService.ehAdmin()">
+                <a class="nav-link" routerLink="/lista">Lista de Usuários</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/listaProdutos">
-                    Lista De Produtos
-                </a> 
+            <li class="nav-item" *ngIf="authService.ehAdmin()">
+                <a class="nav-link" routerLink="/listaProdutos">Lista De Produtos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/cadastroProdutos">
-                   Cadastrar Produtos
-                </a> 
+            <li class="nav-item" *ngIf="authService.ehAdmin()">
+                <a class="nav-link" routerLink="/cadastroProdutos">Cadastrar Produtos</a>
             </li>
-            <li class="nav-item">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/ListaCategoria">
-                    Categoria
-                </a> 
-            </li> 
-            <!-- <li class="nav-item">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/item-pedido">
-                    Itens_pedidos
-                </a> 
+            <li class="nav-item" *ngIf="authService.ehAdmin()">
+                <a class="nav-link" routerLink="/ListaCategoria">Categoria</a>
             </li>
-            <li class="nav-item">  -->
-                <!-- <a class="nav-link" routerLink="/cards">
-                    Lista
-                </a>  -->
-            <!-- </li> -->
+
+        
+            <!-- <li class="nav-item" *ngIf="authService.estaLogado()">
+                <a class="nav-link" (click)="logout()">Logout</a>
+            </li> -->
         </ul>
     </div>
-   
 </nav>
+
 <router-outlet></router-outlet>

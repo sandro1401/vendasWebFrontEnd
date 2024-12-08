@@ -21,6 +21,7 @@ export class ItemPedidoComponent implements OnInit {
   itensSelecionados: ItemPedido[] = [];
   pedidoAtual!: Pedido; 
   @Input() pedidoId: number = 0;
+  
 
   constructor(private produtoService: ProdutoApiService, 
     private pedidoService: PedidoService,
@@ -31,7 +32,7 @@ export class ItemPedidoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
- 
+    
     this.route.params.subscribe((params) => {
       this.pedidoId = +params['id'];
       if (!this.pedidoId) {
@@ -39,24 +40,34 @@ export class ItemPedidoComponent implements OnInit {
       }
     });
     this.carregarProdutos();
+    
     const itens = this.pedidoDataService.getItensSelecionados();
     console.log(itens)
+    
     if (itens && itens.length > 0) {
       this.adicionarNovosItens(itens);
       console.log(itens)
-      this.pedidoDataService.clearItensSelecionados(); // Limpar dados temporários
+
+      this.pedidoDataService.clearItensSelecionados(); 
+    }else {
+      console.log('Nenhum item selecionado.');
     }
   }
 
 
+
+
   adicionarNovosItens(novosItens: ItemPedido[]) {
-    if (!this.pedidoAtual || !this.pedidoAtual.itens) {
-      this.pedidoAtual.itens = [];
+    if (!this.pedidoAtual) {
+      this.pedidoAtual = { itens: [] };  
     }
-    // Adicionar os itens selecionados
+  
+    if (!this.pedidoAtual.itens) {
+      this.pedidoAtual.itens = [];  
+    }
+  
     novosItens.forEach(item => this.pedidoAtual.itens?.push(item));
- 
-    // Atualizar o valor total do pedido
+  
     this.calcularValorTotal();
     this.cdr.detectChanges();
   }
@@ -71,7 +82,7 @@ export class ItemPedidoComponent implements OnInit {
     }
   );
   }
-
+  
   adicionarProduto(produto: Produto) {
     if (!this.pedidoId) {
       console.error('Erro: pedidoId está nulo ou inválido!');

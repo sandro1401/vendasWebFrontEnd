@@ -87,6 +87,9 @@ export class PedidoComponent implements OnInit {
       }
     });
   }
+
+
+
   private adicionarItensSelecionados(): void {
     this.itensSelecionados = this.pedidoDataService.getItensSelecionados();
     console.log('Itens selecionados recebidos no Pedido:', this.itensSelecionados);
@@ -97,6 +100,29 @@ export class PedidoComponent implements OnInit {
       this.pedidoDataService.clearItensSelecionados();
     }
   }
+
+  // private adicionarItensSelecionados(): void {
+  //   const novosItens = this.pedidoDataService.getItensSelecionados();
+  //   console.log('Itens selecionados recebidos no Pedido:', novosItens);
+  
+  //   if (novosItens.length > 0) {
+  //     // Adiciona os novos itens à lista existente
+  //     this.pedidoAtual.itens = [
+  //       ...(this.pedidoAtual.itens || []),
+  //       ...novosItens
+  //     ];
+  //     console.log('Pedido atualizado com novos itens:', this.pedidoAtual);
+  
+  //     // Atualiza o valor total e quantidade
+  //     this.atualizarValoresPedido();
+  
+  //     // Limpa os itens selecionados no serviço
+  //     this.pedidoDataService.clearItensSelecionados();
+  //   }
+  // }
+  
+
+
   private atualizarValorTotal(pedido: Pedido): void {
     if (pedido.itens && pedido.itens.length > 0) {
       pedido.valorTotal = pedido.itens.reduce((total, item) => {
@@ -266,7 +292,7 @@ export class PedidoComponent implements OnInit {
   }
 
   // removerProduto(produtoId: number): void {
-  //   this.pedidoService.removerItem(this.pedido.id!, produtoId).subscribe(
+  //   this.pedidoService.removerItem(this.pedido.id!).subscribe(
   //     () => {
   //       this.pedido.itens = this.pedido.itens!.filter((item) => item.produtoId !== produtoId);
   //       this.atualizarValorTotal(this.pedidoAtual);

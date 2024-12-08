@@ -41,24 +41,20 @@ export class LoginComponent {
           if(usuario.senha === senha) {
             this.usuario = usuario;
             this.realizarLogin()
-           
           }
-
         }
       }
     )
   }
-
   
-
-  // Método para limpar a mensagem de erro
   clearErrorMessage() {
     this.errorMessage = '';
   }
 
  
   realizarLogin() {
-    console.log(this.usuario)
+    const nomeUsuario = this.usuario.nome;
+    this.authService.setUsuarioLogado(nomeUsuario!)
     this.authService.login(this.usuario).subscribe(
       logado => {
         if(logado) {

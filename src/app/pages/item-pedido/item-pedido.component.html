@@ -1,5 +1,5 @@
 <div class="container-item-pedido">
- {{itensPedido |json}}
+
   <h2>Adicionar Produtos ao Pedido #{{ pedidoId }}</h2>
   <ul *ngIf="produtosDisponiveis.length > 0; else semItens">
     <li *ngFor="let produto of produtosDisponiveis">
@@ -39,11 +39,11 @@
           <td>R$ {{ calcularSubtotal(item) | number: '1.2-2' }}</td>
         </tr>
       </tbody>
-      <tr *ngFor="let item of itensSelecionados">
+      <!-- <tr *ngFor="let item of itensSelecionados">
       <div class="container">
         <button class="btn btn-primary" (click)="definirConclusao(item, true)"> Concluir Pedido</button>
       </div>
-    </tr>
+    </tr> -->
 
     </table>
     <div class="d-grid gap-2 col-6 mx-auto">
@@ -56,46 +56,3 @@
  
  
  
- 
- <!-- <div class="container-item-pedido">
-  <h2>Adicionar Produtos ao Pedido</h2> 
-  {{pedidoId | json}}
- 
-  <ul *ngIf="produtosDisponiveis.length > 0; else semItens">
-    <li *ngFor="let produto of produtosDisponiveis">
-      <div class="produto-disponivel">
-        <span class="nome-produto">{{ produto.nome }}</span>
-        <span class="preco-produto">R$ {{ produto.preco | number: '1.2-2' }}</span>
-        <button (click)="selecionarProduto(produto)">Selecionar</button>
-      </div>
-      <div>
-        <button (click)="finalizarAdicaoDeProdutos()">Finalizar Adição</button>
-
-      </div>
-    </li>
-  </ul> 
-  <ng-template #semItens>
-    <p>Nenhum item disponível para adicionar ao pedido.</p>
-  </ng-template>
-  <div *ngIf="pedidoId">
-    <h2>Itens do Pedido #{{ pedidoId }}</h2>
-  <div class="itens-selecionados" *ngIf="produtoSelecionado">
-    <h3>Item Selecionado para o Pedido:</h3>
-    <p>Nome: {{ produtoSelecionado.nome }}</p>
-    <p>Preço: R$ {{ produtoSelecionado.preco | number: '1.2-2' }}</p>
-    <p>Quantidade:
-      <input type="number" [(ngModel)]="quantidade" min="1">
-    </p>
-    <p>Concluir Pedido:
-      <select  class="form-select form-select-lg mb-3" aria-label="Large select example" [(ngModel)]="concluido">
-        <option [value]="true">Sim</option>
-        <option [value]="false">Não</option>
-      </select>
-    </p> 
-    <div class="total-pedido">
-      <strong>Valor Total: R$ {{ calcularValorTotal() | number: '1.2-2' }}</strong>
-    </div>
-    <button (click)="adicionarProduto(produtoSelecionado)">Adicionar ao Pedido</button>
-  </div>
-  </div> -->
-
