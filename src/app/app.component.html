@@ -11,6 +11,9 @@
             <li class="nav-item" *ngIf="authService.estaLogado()">
                 <a class="nav-link" routerLink="/produtos">Produtos</a>
             </li>
+            <li class="nav-item" *ngIf="authService.estaLogado()">
+                <a class="nav-link" routerLink="/meus-pedidos">meus-pedidos</a>
+            </li>
            
 
             <li class="nav-item" *ngIf="authService.ehAdmin()">

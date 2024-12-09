@@ -32,6 +32,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { environment } from '../environments/environment';
     CadastroCategoriaComponent,
     ListCategoriaComponent,
     PesquisaCategoriaPipe,
+    MeusPedidosComponent,
 
    
 

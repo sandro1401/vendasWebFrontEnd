@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <h2>Meus Pedidos</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data do Pedido</th>
+          <th>Valor Total</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.data_Pedido | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ pedido.valorTotal | currency: 'BRL' }}</td>
+          <td>
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="excluirPedido(pedido.id!)"
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="pedidos.length === 0" class="text-muted">
+      Nenhum pedido encontrado.
+    </p>
+  </div>
+  

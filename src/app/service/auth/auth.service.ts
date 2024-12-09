@@ -35,6 +35,7 @@ export class AuthService {
         sessionStorage.setItem("usuario.nome", decodedToken.nome);
         sessionStorage.setItem("usuario.email", decodedToken.email);
         sessionStorage.setItem("usuario.tipo", decodedToken.tipo);
+        
           return true;
           
         }
@@ -72,6 +73,11 @@ estaLogado(): boolean {
     return tipo ? tipo : null;
   }
 
+  obterUsuario(): string | null {
+    const user = sessionStorage.getItem('usuario');
+    return user ? user : null;
+  }
+  
   ehAdmin(): boolean {
     return this.obterTipoUsuario() === 'admin';
   }
@@ -84,27 +90,58 @@ estaLogado(): boolean {
     return this.logadoSubject.asObservable(); 
   }
  
+  // obterUsuarioLogado(): Observable<Usuario> {
+  //   const token = sessionStorage.getItem(TOKEN_KEY);
+  //   if (!token) {
+  //     throw new Error('Token de autenticação não encontrado');
+  //   }
+  //   const headers = new HttpHeaders({
+  //     Authorization: `Bearer ${token}`
+  //   });
+  //   return this.http.get<Usuario>(`${BASE_API_usuario}`, { headers }).pipe(
+  //     tap((usuario: Usuario) => {
+  //       if (!usuario || !usuario.id || !usuario.nome) {
+  //         throw new Error('Dados do usuário não encontrados na resposta');
+  //       }else{
+  //       }
+  //     }),
+  //     catchError((error) => {
+  //       console.error('Erro ao obter usuário logado:', error);
+  //       throw error;
+  //     })
+  //   );
+  // }
+
   obterUsuarioLogado(): Observable<Usuario> {
     const token = sessionStorage.getItem(TOKEN_KEY);
     if (!token) {
       throw new Error('Token de autenticação não encontrado');
     }
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.http.get<Usuario>(`${BASE_API_usuario}`, { headers }).pipe(
-      tap((usuario: Usuario) => {
-        if (!usuario || !usuario.id || !usuario.nome) {
-          throw new Error('Dados do usuário não encontrados na resposta');
-        }else{
-        }
-      }),
-      catchError((error) => {
-        console.error('Erro ao obter usuário logado:', error);
-        throw error;
-      })
-    );
+
+    try {
+      // Decodifica o token
+      const decodedToken: any = jwtDecode(token);
+
+      // Verifica se as informações necessárias estão no token
+      if (!decodedToken || !decodedToken.id || !decodedToken.nome) {
+        throw new Error('Dados do usuário não encontrados no token');
+      }
+
+      // Cria o objeto do usuário com base nos dados decodificados
+      const usuario: Usuario = {
+        id: decodedToken.id,
+        nome: decodedToken.nome,
+        email: decodedToken.email || '', // Se o email existir no token
+      };
+      console.log(usuario)
+      return of(usuario); // Retorna como um Observable
+
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      throw error;
+    }
   }
-
-
 }
+
+
+

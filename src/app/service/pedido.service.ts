@@ -33,6 +33,23 @@ export class PedidoService {
     this.pedidoSource.next(pedido);
   }
 
+  listarPedido(): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(BASE_API).pipe(
+      map((pedidos: any[]) =>
+        pedidos.map((pedido) => ({
+          ...pedido,
+          usuarioId: pedido.usuarioid,       // Mapeia `usuarioid` para `usuarioId`
+          produtoId: pedido.produtoid,       // Mapeia `produtoid` para `produtoId`
+          quantidade: pedido.quantidade,     // Confere se `quantidade` está correto
+          valorTotal: pedido.valortotal,     // Mapeia `valortotal` para `valorTotal`
+          data_Pedido: new Date(pedido.data_pedido), // Mapeia e transforma `data_pedido` para Date
+        }))
+      )
+    );
+  }
+  
+  
+
   getPedidoAtual(): any {
     return this.pedidoSource.getValue();
   }
@@ -40,11 +57,7 @@ export class PedidoService {
   
   constructor(private http: HttpClient) { }
 
-//   salvarPedido(pedido: Pedido, itensPedido: ItemPedido[]) {
-//     const pedidoCompleto = { ...pedido, itens: itensPedido };
-//     return this.http.put(BASE_API, pedidoCompleto);
-  
-// }
+
   /**
    * Adiciona um produto ao pedido localmente e envia a requisição para o backend.
    * @param produto Produto a ser adicionado
@@ -78,7 +91,7 @@ export class PedidoService {
         valorTotal: pedido.valortotal,
         produtoId: pedido.produtoid,
         usuarioId: pedido.usuarioid,
-        itens: pedido.itens || [] // Certifique-se de que os itens estejam inicializados
+        itens: pedido.itens || [] 
       })) )
     
   }
@@ -151,11 +164,16 @@ export class PedidoService {
         return throwError(() => error);
       })
     );
+
+    
   }
 
 
 
-
+  deletar(id: number): Observable<Pedido> {
+    const uri = `${BASE_API}/${id}`;
+    return this.http.delete<Pedido>(uri);
+  }
 
   
 }

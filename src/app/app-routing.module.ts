@@ -14,6 +14,7 @@ import { CadastroCategoriaComponent } from './pages/cadastro-categoria/cadastro-
 import { ListCategoriaComponent } from './pages/list-categoria/list-categoria.component';
 import { canActivate, loggedIn, redirectUnauthorizedTo} from '@angular/fire/auth-guard'
 import { AdminGuard } from './service/auth/admin.guard';
+import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
@@ -33,7 +34,7 @@ const routes: Routes = [
   {path: 'cadastroCategorias', component: CadastroCategoriaComponent, canActivate: [AdminGuard]},
   {path: 'editCategoria/:id', component: CadastroCategoriaComponent, canActivate: [AdminGuard]},
   {path: 'ListaCategoria', component: ListCategoriaComponent, canActivate: [AdminGuard]},
-  
+  { path: 'meus-pedidos', component: MeusPedidosComponent,canActivate: [AuthGuard] },
 
  { path: '', redirectTo: '/produtos', pathMatch: 'full' }, 
   // { path: '', redirectTo:'/login', pathMatch: 'full' },
