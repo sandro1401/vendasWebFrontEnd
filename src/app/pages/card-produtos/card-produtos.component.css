@@ -106,3 +106,9 @@ body {
 .product-card button:hover {
     background-color: #218838;
 }
+.modal-content {
+    background-color:linen;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+  }
