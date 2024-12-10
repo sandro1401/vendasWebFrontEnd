@@ -17,7 +17,7 @@
         <div class="form-group">
             <label for="nome" class="form-label">NOME:</label>
             <input [(ngModel)]="usuario.nome" formControlName="nome" class="form-control"
-                id="nome" placeholder="nome do usuario ...">
+                id="nome" autocomplete="username" placeholder="nome do usuario ...">
         </div>
         <div class="form-group">
             <label for="cpf" class="form-label">CPF:</label>
@@ -32,7 +32,7 @@
         <div class="form-group">
             <label for="senha" class="form-label">SENHA:</label>
             <input [(ngModel)]="usuario.senha" formControlName="senha" class="form-control"
-                id="senha" type="password" placeholder="senha ...">
+                id="senha" autocomplete="current-password" type="password" placeholder="senha ...">
         </div>
     </div>
                 </form>
@@ -74,7 +74,8 @@
             <div class="row p-0">
         <div class="form-group">
             <label for="dt_nascimento" class="form-label">DATA DE NASCIMENTO:</label>
-            <input type="date" [(ngModel)]="usuario.dt_nascimento" formControlName="dt_nascimento" class="form-control"
+            <input type="date" [(ngModel)]="usuario.dt_nascimento" 
+                formControlName="dt_nascimento" class="form-control"
                 id="dt_nascimento" placeholder="Data de Nascimento ...">
         </div>
         <div class="form-group">

@@ -10,7 +10,7 @@ export class Usuario {
     bairro?: string;
     cidade?: string;
     estado?: string;
-    dt_nascimento?: Date;
+    dt_nascimento?: string |Date;
     sexo?: string;
     telefone?: string;
     tipo?: string;

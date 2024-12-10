@@ -95,9 +95,14 @@ export class CadastroUsuarioComponent implements OnInit {
       alert('Preencha todos os campos obrigatórios antes de salvar.');
       return;
     }
-
+    const usuarioAtual = { ...this.usuario };
+      if(this.usuario.dt_nascimento instanceof Date){
+        usuarioAtual.dt_nascimento = this.formatarData(this.usuario.dt_nascimento)
+      
+      }
     if(this.id){
-      this.usuarioApiService.editar(this.id, this.usuario).subscribe(
+      console.log(usuarioAtual.dt_nascimento)
+      this.usuarioApiService.editar(this.id, usuarioAtual).subscribe(
         (usuario) => {
           alert(`usuario ${this.usuario.nome} editado com sucesso!`);
           this.usuario = usuario;
@@ -108,7 +113,8 @@ export class CadastroUsuarioComponent implements OnInit {
       )
     }
     else {
-      this.usuarioApiService.inserir(this.usuario).subscribe(
+      console.log(usuarioAtual.dt_nascimento)
+      this.usuarioApiService.inserir(usuarioAtual).subscribe(
         (usuario) => {
           alert(`usuario ${usuario.id} cadastrado com sucesso!`)
           this.usuario = new Usuario();  
@@ -130,5 +136,13 @@ export class CadastroUsuarioComponent implements OnInit {
   login(){
     this.router.navigate(['login'])
   }
+
+  formatarData(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0'); 
+    const dia = data.getDate().toString().padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+  }
+  
 
 }

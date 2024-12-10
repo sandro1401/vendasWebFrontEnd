@@ -18,7 +18,7 @@
                         <div class="mb-3" class="form-group">
                             <label for="senha">Senha:</label>
                             <input  id="senha" matInput [type]="hidePassword ? 'password' : 'text'"
-                            [(ngModel)]="senha" name="senha" type="password" class="form-control textfield" placeholder="Digite sua senha" value="" />
+                            [(ngModel)]="senha" name="senha" type="password" autocomplete="current-password" class="form-control textfield" placeholder="Digite sua senha" value="" />
                         </div>
                         <div class="mb-3" class="form-group">
                             <button (click)="login(email, senha)" class="btnSubmit">Login</button>
