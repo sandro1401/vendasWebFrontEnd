@@ -35,7 +35,7 @@
         }
 
         .left {
-            width: 40%;
+            /* width: 60%; */
             background-color: #53c2b8; /* Cor de fundo */
             display: flex;
             justify-content: center;
@@ -45,11 +45,16 @@
             border-radius: 15px;
            
         }
-
+        .left h1{
+            text-align: center;
+            margin-bottom: 20px;
+           
+        }
         .content {
           
             text-align: center;
             color: white;
+           
         }
 
         .right {

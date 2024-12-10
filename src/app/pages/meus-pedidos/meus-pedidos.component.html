@@ -16,11 +16,12 @@
           <td>{{ pedido.valorTotal | currency: 'BRL' }}</td>
           <td>
             <button
-              class="btn btn-danger btn-sm"
+            type="button" class="btn btn-danger"
               (click)="excluirPedido(pedido.id!)"
             >
               Excluir
             </button>
+            <button  type="button" class="btn btn-info"(click)="abrirModal(pedido)">Ver itens</button>
           </td>
         </tr>
       </tbody>
@@ -29,4 +30,22 @@
       Nenhum pedido encontrado.
     </p>
   </div>
+  
+  <div *ngIf="pedidoSelecionado" class="modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Itens do Pedido: {{ pedidoSelecionado.id }}</h2>
+      <ul>
+        <li *ngFor="let item of pedidoSelecionado.itens">
+          <div class="modal-body">
+            <p><strong>Produto:</strong> {{ item.produto.nome }}</p>
+            <p><strong>Quantidade:</strong> {{ item.quantidade }}</p>
+            <p><strong>Preço Unitário:</strong> {{ item.preco_unitario | currency }}</p>
+          </div>
+         
+        </li>
+      </ul>
+      <button (click)="fecharModal()">Fechar</button>
+    </div>
+  </div>
+  
   

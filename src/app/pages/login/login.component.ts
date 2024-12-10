@@ -66,6 +66,11 @@ export class LoginComponent {
       }
     )    
   }
+
+  cadastrar(){
+    this.router.navigate(['/novoUsuario'])
+  }
+
 }
   
 

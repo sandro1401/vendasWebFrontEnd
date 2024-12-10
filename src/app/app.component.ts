@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.authService.getEstadoLogado().subscribe((logado) => {
       this.logado = logado;
-      console.log(logado)
+      // console.log(logado)
     });
   }
 

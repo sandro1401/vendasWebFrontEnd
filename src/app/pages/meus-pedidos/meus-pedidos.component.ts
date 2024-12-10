@@ -11,7 +11,7 @@ import { Usuario } from '../../models/usuario';
 export class MeusPedidosComponent implements OnInit{
   pedidos: Pedido[] = [];
   usuarioLogado: Usuario | null = null;
-
+  pedidoSelecionado: any = null;
   constructor(
     private pedidoService: PedidoService,
     private authService: AuthService
@@ -38,9 +38,9 @@ export class MeusPedidosComponent implements OnInit{
     if (this.usuarioLogado) {
       this.pedidoService.listarPedido().subscribe({
         next: (pedidos) => {
-          console.log('Pedidos:', pedidos);
-          pedidos.forEach((pedido) => 
-            console.log('Pedido ID:', pedido.id, 'UsuarioId:', pedido.usuarioId));
+          // console.log('Pedidos:', pedidos);
+          // pedidos.forEach((pedido) => 
+          //   console.log('Pedido ID:', pedido.id, 'UsuarioId:', pedido.usuarioId));
           // Filtra os pedidos do usuário logado
           this.pedidos = pedidos.filter(
             (pedido) => 
@@ -67,5 +67,22 @@ export class MeusPedidosComponent implements OnInit{
         console.error('Erro ao excluir pedido:', error);
       }
     });
+  }
+
+  abrirModal(pedido: any): void {
+    this.pedidoService.getPedidoById(pedido.id).subscribe({
+      next: (pedidoCompleto) => {
+        this.pedidoSelecionado = pedidoCompleto; 
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar itens do pedido:', erro);
+      },
+    });
+  }
+  
+  
+  
+  fecharModal(): void {
+    this.pedidoSelecionado = null;
   }
 }

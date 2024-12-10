@@ -133,7 +133,7 @@ estaLogado(): boolean {
         nome: decodedToken.nome,
         email: decodedToken.email || '', // Se o email existir no token
       };
-      console.log(usuario)
+      // console.log(usuario)
       return of(usuario); // Retorna como um Observable
 
     } catch (error) {
