@@ -34,22 +34,43 @@ export class LoginComponent {
 
 
 
+  // login(email: string, senha: string) {
+  //   this.clearErrorMessage();
+  //   this.usuarioApiService.login(email, senha).subscribe(
+  //     usuario => {
+  //       if(usuario && senha) {
+  //         if(usuario.senha === senha) {
+  //           this.usuario = usuario;
+  //           this.realizarLogin()
+  //         }else{
+  //           this.erro = true;
+  //         }
+  //       }
+  //     }
+  //   )
+  // }
+
   login(email: string, senha: string) {
+    this.clearErrorMessage(); 
     this.usuarioApiService.login(email, senha).subscribe(
       usuario => {
-        if(usuario && senha) {
-          if(usuario.senha === senha) {
-            this.usuario = usuario;
-            this.realizarLogin()
-          }
+        if (usuario && usuario.senha === senha) {
+          this.usuario = usuario;
+          this.realizarLogin();
+        } else {
+          this.erro = true; 
         }
+      },
+      error => {
+        this.erro = true; 
       }
-    )
+    );
+  }
+
+  clearErrorMessage() {
+    this.erro = false; 
   }
   
-  clearErrorMessage() {
-    this.errorMessage = '';
-  }
 
  
   realizarLogin() {
