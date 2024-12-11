@@ -57,7 +57,7 @@ export class ProdutoApiService {
     }
     
     editarComImagem(id: number, produtoData: FormData):Observable<any> {
-      const headers = new HttpHeaders();  
+      const headers = new HttpHeaders({ 'enctype': 'multipart/form-data' });  
       return this.http.put(`${BASE_API}/${id}`, produtoData, { headers: headers });
     }
     getUsuarioId(): any {
